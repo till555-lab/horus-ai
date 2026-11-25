@@ -32,6 +32,8 @@ android.useAndroidX=true
 android.nonTransitiveRClass=true
 kotlin.code.style=official
 =====FILE: app/build.gradle.kts=====
+import java.util.Base64
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -41,7 +43,7 @@ val keystoreB64 = file("horus.keystore.b64")
 val keystoreFile = file("build/horus.keystore")
 if (keystoreB64.exists()) {
     keystoreFile.parentFile.mkdirs()
-    keystoreFile.writeBytes(java.util.Base64.getMimeDecoder().decode(keystoreB64.readText()))
+    keystoreFile.writeBytes(Base64.getMimeDecoder().decode(keystoreB64.readText()))
 }
 
 android {
