@@ -1,6 +1,15 @@
+import java.util.Base64
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+}
+
+val keystoreB64 = file("horus.keystore.b64")
+val keystoreFile = file("build/horus.keystore")
+if (keystoreB64.exists()) {
+    keystoreFile.parentFile.mkdirs()
+    keystoreFile.writeBytes(Base64.getMimeDecoder().decode(keystoreB64.readText()))
 }
 
 android {
@@ -11,8 +20,16 @@ android {
         applicationId = "com.horusai.app"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "0.1.0-alpha"
+        versionCode = (System.getenv("GITHUB_RUN_NUMBER") ?: "1").toInt()
+        versionName = "0.1.1-alpha"
+    }
+    signingConfigs {
+        getByName("debug") {
+            storeFile = keystoreFile
+            storePassword = "horus-ai"
+            keyAlias = "horus"
+            keyPassword = "horus-ai"
+        }
     }
     buildTypes {
         release { isMinifyEnabled = false }
