@@ -333,7 +333,7 @@ class AppState(ctx: Context) {
     fun setKey(p: Prov, k: String) { keys[p.id] = k; save() }
     fun setEnabled(p: Prov, v: Boolean) { enabled[p.id] = v; save() }
     fun setModel(p: Prov, m: String) { models[p.id] = m; save() }
-    fun setDiscuss(v: Boolean) { discuss = v; save() }
+    fun updateDiscuss(v: Boolean) { discuss = v; save() }
 
     fun nextModel(p: Prov) {
         val l = p.models
@@ -1014,7 +1014,7 @@ fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
                         Text(stringResource(R.string.discuss_mode), fontWeight = FontWeight.Bold)
                         Text(stringResource(R.string.discuss_hint), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
                     }
-                    Switch(checked = st.discuss, onCheckedChange = { st.setDiscuss(it) })
+                    Switch(checked = st.discuss, onCheckedChange = { st.updateDiscuss(it) })
                 }
                 Spacer(Modifier.height(8.dp))
                 TextButton(onClick = onSettings) { Text(stringResource(R.string.settings)) }
