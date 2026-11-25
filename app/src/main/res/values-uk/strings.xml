@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Horus AI</string>
+    <string name="new_chat">Новий чат</string>
+    <string name="recent">Нещодавні чати</string>
+    <string name="settings">Налаштування</string>
+    <string name="delete_chat">Видалити чат</string>
+    <string name="type_message">Повідомлення для Хоруса…</string>
+    <string name="send">Надіслати</string>
+    <string name="thinking">Думаю…</string>
+    <string name="banner_nokeys">Ключі ШІ не підключені: Horus поки не може відповідати.</string>
+    <string name="no_keys_title">Ключів ШІ поки немає</string>
+    <string name="no_keys_text">Horus поєднує кілька ШІ в одному чаті, але потребує ваших власних API-ключів. Без ключів він не може відповідати.</string>
+    <string name="how_to_get">Як отримати ключі</string>
+    <string name="close">Закрити</string>
+    <string name="tutorial_text">Як отримати ключ:\n1. У налаштуваннях натисніть «Отримати ключ» поруч із потрібним ШІ.\n2. Увійдіть в акаунт (можна створити окремий лише для цього).\n3. Створіть API-ключ і скопіюйте його.\n4. Вставте його в поле в налаштуваннях.\n\nAPI-ключ — це не те саме, що підписка ChatGPT чи Claude, він оплачується окремо. У Gemini є безкоштовний ліміт.</string>
+    <string name="ai_panel_title">ШІ в цьому чаті</string>
+    <string name="no_key">Немає ключа</string>
+    <string name="used_tokens">≈ %1$d токенів витрачено</string>
+    <string name="blocked">Ліміт вичерпано або помилка</string>
+    <string name="tap_model">Натисніть на назву моделі, щоб перемкнути</string>
+    <string name="discuss_mode">Режим обговорення</string>
+    <string name="discuss_hint">Якщо ввімкнено два чи більше ШІ, вони пишуть чернетки, а один дає підсумкову відповідь. Витрачає більше токенів.</string>
+    <string name="answered_by">Відповідали: %s</string>
+    <string name="key_label">API-ключ</string>
+    <string name="model_label">Назва моделі</string>
+    <string name="get_key">Отримати ключ</string>
+    <string name="about_title">Про Horus AI</string>
+    <string name="about_text">Horus AI поєднує кілька ШІ в одному чаті. Почніть повідомлення з імені, наприклад «Клод, ...», щоб спитати лише цей ШІ. Ключі та чати зберігаються на цьому пристрої; повідомлення надходять лише до тих ШІ, які ви ввімкнули. Мова застосунку збігається з мовою телефону.</string>
+    <string name="err_no_keys">Спочатку додайте хоча б один API-ключ у налаштуваннях.</string>
+    <string name="err_ai_off">%s вимкнено або без ключа.</string>
+</resources>
