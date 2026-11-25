@@ -1,0 +1,66 @@
+name: Build Horus AI
+
+on:
+  push:
+    paths:
+      - 'bundle.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unpack bundle.txt
+        run: |
+          python3 - <<'PY'
+          import os, re
+          cur = None
+          buf = []
+          def flush():
+              if cur is None:
+                  return
+              d = os.path.dirname(cur)
+              if d:
+                  os.makedirs(d, exist_ok=True)
+              with open(cur, 'w', encoding='utf-8') as f:
+                  f.write('\n'.join(buf).strip('\n') + '\n')
+              print('wrote', cur)
+          for line in open('bundle.txt', encoding='utf-8').read().split('\n'):
+              m = re.match(r'^=====FILE: (.+?)=====\s*$', line)
+              if m:
+                  flush()
+                  cur = m.group(1).strip()
+                  buf = []
+              else:
+                  buf.append(line)
+          flush()
+          PY
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Build debug APK
+        run: gradle assembleDebug --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HorusAI-apk
+          path: app/build/outputs/apk/debug/*.apk
+
+      - name: Commit unpacked files
+        run: |
+          git config user.name "horus-bot"
+          git config user.email "horus-bot@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || (git commit -m "Unpack bundle [skip ci]" && git push)
