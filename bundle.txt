@@ -55,7 +55,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = (System.getenv("GITHUB_RUN_NUMBER") ?: "1").toInt()
-        versionName = "0.1.1-alpha"
+        versionName = "0.1.2-alpha"
     }
     signingConfigs {
         getByName("debug") {
@@ -134,41 +134,37 @@ dependencies {
 =====FILE: app/src/main/res/drawable/ic_launcher_foreground.xml=====
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M24,50 Q54,28 84,50 Q54,72 24,50 Z"
-        android:strokeColor="#F5B942"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"
-        android:strokeWidth="4" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M24,40 Q54,22 84,40"
-        android:strokeColor="#F5B942"
-        android:strokeLineCap="round"
-        android:strokeWidth="3" />
-    <path
-        android:fillColor="#F5B942"
-        android:pathData="M45,50 a9,9 0 1,0 18,0 a9,9 0 1,0 -18,0" />
-    <path
-        android:fillColor="#101426"
-        android:pathData="M50,50 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M54,72 L54,82 Q54,87 48,87"
-        android:strokeColor="#F5B942"
-        android:strokeLineCap="round"
-        android:strokeWidth="3" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M66,67 Q76,76 70,85"
-        android:strokeColor="#F5B942"
-        android:strokeLineCap="round"
-        android:strokeWidth="3" />
+    <path android:pathData="M48,24 Q48,46 70,46 Q48,46 48,68 Q48,46 26,46 Q48,46 48,24 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="26"
+                android:startY="24"
+                android:endX="70"
+                android:endY="68"
+                android:type="linear">
+                <item android:color="#6EA8FF" android:offset="0" />
+                <item android:color="#B07CFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M74,63 Q74,74 85,74 Q74,74 74,85 Q74,74 63,74 Q74,74 74,63 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="63"
+                android:startY="63"
+                android:endX="85"
+                android:endY="85"
+                android:type="linear">
+                <item android:color="#FFD36B" android:offset="0" />
+                <item android:color="#FF9F5A" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
 </vector>
 =====FILE: app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml=====
 <?xml version="1.0" encoding="utf-8"?>
@@ -198,7 +194,7 @@ dependencies {
     <string name="no_keys_text">Horus connects several AIs in one chat, but it needs your own API keys to talk to them. Without keys it cannot answer.</string>
     <string name="how_to_get">How to get keys</string>
     <string name="close">Close</string>
-    <string name="tutorial_text">How to get a key:\n1. Tap Get key next to an AI in Settings.\n2. Sign in (you can use a separate account just for this).\n3. Create an API key and copy it.\n4. Paste it into the field in Settings.\n\nAn API key is not the same as a ChatGPT or Claude subscription and is billed separately. Gemini has a free tier.</string>
+    <string name="tutorial_text">The easiest start is Gemini or Groq: they are free. Open Settings, pick an AI and tap Tutorial for the steps. Paid AIs (ChatGPT, Claude, DeepSeek) need a prepaid balance.</string>
     <string name="ai_panel_title">AIs in this chat</string>
     <string name="no_key">No key</string>
     <string name="used_tokens">≈ %1$d tokens used</string>
@@ -214,6 +210,26 @@ dependencies {
     <string name="about_text">Horus AI puts several AIs in one chat. Start a message with a name, for example Claude, to ask only that AI. Keys and chats stay on this device; messages go only to the AIs you turned on. The app language follows your phone language.</string>
     <string name="err_no_keys">Add at least one API key in Settings first.</string>
     <string name="err_ai_off">%s is turned off or has no key.</string>
+    <string name="free">free</string>
+    <string name="paid">paid</string>
+    <string name="locked">Paid model: not available (no balance)</string>
+    <string name="paid_off">%s is a paid model and is turned off (no balance or key problem). Add credits and enter the key again.</string>
+    <string name="tutorial_btn">Tutorial</string>
+    <string name="paste">Paste</string>
+    <string name="limit_label">Token limit (optional, for % left)</string>
+    <string name="left_pct">≈ %1$d%% left</string>
+    <string name="reset_counter">Reset counter</string>
+    <string name="unlock_btn">I topped up my balance</string>
+    <string name="tier_fast">fast, cheap</string>
+    <string name="tier_mid">balanced</string>
+    <string name="tier_strong">powerful, uses more tokens</string>
+    <string name="local_soon">Local model, coming soon</string>
+    <string name="paid_note">Free AIs (Gemini, Groq) work without paying. Paid ones (ChatGPT, Claude, DeepSeek) need credits on the API account; a chat subscription does not count.</string>
+    <string name="tut_gemini">1. Tap Get key (aistudio.google.com/apikey).\n2. Sign in with a Google account.\n3. Tap Create API key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
+    <string name="tut_groq">1. Tap Get key (console.groq.com/keys).\n2. Sign up or sign in.\n3. Tap Create API Key and give it any name.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nThere is a free tier.</string>
+    <string name="tut_openai">1. Open platform.openai.com and sign in.\n2. In Billing add a payment method and top up the balance (usually from 5 USD).\n3. Open API keys and tap Create new secret key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nA ChatGPT subscription does not work as an API balance.</string>
+    <string name="tut_claude">1. Open console.anthropic.com and sign in.\n2. In Plans and Billing buy credits (usually from 5 USD).\n3. Open Settings, API keys and tap Create Key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nA Claude subscription does not work as an API balance.</string>
+    <string name="tut_deepseek">1. Open platform.deepseek.com and sign up.\n2. Top up the balance (a small amount is enough).\n3. Open API keys and tap Create new API key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.</string>
 </resources>
 =====FILE: app/src/main/res/values-ru/strings.xml=====
 <?xml version="1.0" encoding="utf-8"?>
@@ -231,7 +247,7 @@ dependencies {
     <string name="no_keys_text">Horus объединяет несколько ИИ в одном чате, но ему нужны ваши собственные API-ключи. Без ключей он не может отвечать.</string>
     <string name="how_to_get">Как получить ключи</string>
     <string name="close">Закрыть</string>
-    <string name="tutorial_text">Как получить ключ:\n1. В настройках нажмите «Получить ключ» рядом с нужным ИИ.\n2. Войдите в аккаунт (можно создать отдельный только для этого).\n3. Создайте API-ключ и скопируйте его.\n4. Вставьте его в поле в настройках.\n\nAPI-ключ — это не то же самое, что подписка ChatGPT или Claude, он оплачивается отдельно. У Gemini есть бесплатный лимит.</string>
+    <string name="tutorial_text">Проще всего начать с Gemini или Groq: они бесплатные. Откройте настройки, выберите ИИ и нажмите «Туториал». Платным ИИ (ChatGPT, Claude, DeepSeek) нужен предоплаченный баланс.</string>
     <string name="ai_panel_title">ИИ в этом чате</string>
     <string name="no_key">Нет ключа</string>
     <string name="used_tokens">≈ %1$d токенов потрачено</string>
@@ -247,6 +263,26 @@ dependencies {
     <string name="about_text">Horus AI объединяет несколько ИИ в одном чате. Начните сообщение с имени, например «Клод, ...», чтобы спросить только этот ИИ. Ключи и чаты хранятся на этом устройстве; сообщения уходят только тем ИИ, которые вы включили. Язык приложения совпадает с языком телефона.</string>
     <string name="err_no_keys">Сначала добавьте хотя бы один API-ключ в настройках.</string>
     <string name="err_ai_off">%s выключен или без ключа.</string>
+    <string name="free">бесплатная</string>
+    <string name="paid">платная</string>
+    <string name="locked">Платная модель: недоступна (нет баланса)</string>
+    <string name="paid_off">%s — платная модель, она выключена (нет баланса или проблема с ключом). Пополните баланс и введите ключ заново.</string>
+    <string name="tutorial_btn">Туториал</string>
+    <string name="paste">Вставить</string>
+    <string name="limit_label">Лимит токенов (необязательно, для % остатка)</string>
+    <string name="left_pct">≈ %1$d%% осталось</string>
+    <string name="reset_counter">Сбросить счётчик</string>
+    <string name="unlock_btn">Я пополнил баланс</string>
+    <string name="tier_fast">быстрая, дешёвая</string>
+    <string name="tier_mid">сбалансированная</string>
+    <string name="tier_strong">мощная, тратит больше токенов</string>
+    <string name="local_soon">Локальная модель, скоро</string>
+    <string name="paid_note">Бесплатные ИИ (Gemini, Groq) работают без оплаты. Платным (ChatGPT, Claude, DeepSeek) нужен баланс на API-аккаунте; подписка на чат не считается.</string>
+    <string name="tut_gemini">1. Нажмите «Получить ключ» (aistudio.google.com/apikey).\n2. Войдите в аккаунт Google.\n3. Нажмите Create API key.\n4. Скопируйте ключ и нажмите «Вставить» в Horus.\nЕсть бесплатный лимит.</string>
+    <string name="tut_groq">1. Нажмите «Получить ключ» (console.groq.com/keys).\n2. Зарегистрируйтесь или войдите.\n3. Нажмите Create API Key и введите любое имя.\n4. Сразу скопируйте ключ: он показывается один раз.\n5. Нажмите «Вставить» в Horus.\nЕсть бесплатный лимит.</string>
+    <string name="tut_openai">1. Откройте platform.openai.com и войдите.\n2. В разделе Billing добавьте способ оплаты и пополните баланс (обычно от 5 долларов).\n3. Откройте API keys и нажмите Create new secret key.\n4. Сразу скопируйте ключ: он показывается один раз.\n5. Нажмите «Вставить» в Horus.\nПодписка ChatGPT не заменяет баланс API.</string>
+    <string name="tut_claude">1. Откройте console.anthropic.com и войдите.\n2. В Plans and Billing купите кредиты (обычно от 5 долларов).\n3. Откройте Settings, API keys и нажмите Create Key.\n4. Сразу скопируйте ключ: он показывается один раз.\n5. Нажмите «Вставить» в Horus.\nПодписка Claude не заменяет баланс API.</string>
+    <string name="tut_deepseek">1. Откройте platform.deepseek.com и зарегистрируйтесь.\n2. Пополните баланс (хватит небольшой суммы).\n3. Откройте API keys и нажмите Create new API key.\n4. Сразу скопируйте ключ: он показывается один раз.\n5. Нажмите «Вставить» в Horus.</string>
 </resources>
 =====FILE: app/src/main/res/values-uk/strings.xml=====
 <?xml version="1.0" encoding="utf-8"?>
@@ -264,7 +300,7 @@ dependencies {
     <string name="no_keys_text">Horus поєднує кілька ШІ в одному чаті, але потребує ваших власних API-ключів. Без ключів він не може відповідати.</string>
     <string name="how_to_get">Як отримати ключі</string>
     <string name="close">Закрити</string>
-    <string name="tutorial_text">Як отримати ключ:\n1. У налаштуваннях натисніть «Отримати ключ» поруч із потрібним ШІ.\n2. Увійдіть в акаунт (можна створити окремий лише для цього).\n3. Створіть API-ключ і скопіюйте його.\n4. Вставте його в поле в налаштуваннях.\n\nAPI-ключ — це не те саме, що підписка ChatGPT чи Claude, він оплачується окремо. У Gemini є безкоштовний ліміт.</string>
+    <string name="tutorial_text">Найпростіше почати з Gemini або Groq: вони безкоштовні. Відкрийте налаштування, оберіть ШІ й натисніть «Туторіал». Платним ШІ (ChatGPT, Claude, DeepSeek) потрібен передоплачений баланс.</string>
     <string name="ai_panel_title">ШІ в цьому чаті</string>
     <string name="no_key">Немає ключа</string>
     <string name="used_tokens">≈ %1$d токенів витрачено</string>
@@ -280,6 +316,26 @@ dependencies {
     <string name="about_text">Horus AI поєднує кілька ШІ в одному чаті. Почніть повідомлення з імені, наприклад «Клод, ...», щоб спитати лише цей ШІ. Ключі та чати зберігаються на цьому пристрої; повідомлення надходять лише до тих ШІ, які ви ввімкнули. Мова застосунку збігається з мовою телефону.</string>
     <string name="err_no_keys">Спочатку додайте хоча б один API-ключ у налаштуваннях.</string>
     <string name="err_ai_off">%s вимкнено або без ключа.</string>
+    <string name="free">безкоштовна</string>
+    <string name="paid">платна</string>
+    <string name="locked">Платна модель: недоступна (немає балансу)</string>
+    <string name="paid_off">%s — платна модель, її вимкнено (немає балансу або проблема з ключем). Поповніть баланс і введіть ключ заново.</string>
+    <string name="tutorial_btn">Туторіал</string>
+    <string name="paste">Вставити</string>
+    <string name="limit_label">Ліміт токенів (за бажанням, для % залишку)</string>
+    <string name="left_pct">≈ %1$d%% залишилось</string>
+    <string name="reset_counter">Скинути лічильник</string>
+    <string name="unlock_btn">Я поповнив баланс</string>
+    <string name="tier_fast">швидка, дешева</string>
+    <string name="tier_mid">збалансована</string>
+    <string name="tier_strong">потужна, витрачає більше токенів</string>
+    <string name="local_soon">Локальна модель, скоро</string>
+    <string name="paid_note">Безкоштовні ШІ (Gemini, Groq) працюють без оплати. Платним (ChatGPT, Claude, DeepSeek) потрібен баланс на API-акаунті; підписка на чат не враховується.</string>
+    <string name="tut_gemini">1. Натисніть «Отримати ключ» (aistudio.google.com/apikey).\n2. Увійдіть в акаунт Google.\n3. Натисніть Create API key.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
+    <string name="tut_groq">1. Натисніть «Отримати ключ» (console.groq.com/keys).\n2. Зареєструйтесь або увійдіть.\n3. Натисніть Create API Key і введіть будь-яку назву.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
+    <string name="tut_openai">1. Відкрийте platform.openai.com і увійдіть.\n2. У розділі Billing додайте спосіб оплати й поповніть баланс (зазвичай від 5 доларів).\n3. Відкрийте API keys і натисніть Create new secret key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nПідписка ChatGPT не замінює баланс API.</string>
+    <string name="tut_claude">1. Відкрийте console.anthropic.com і увійдіть.\n2. У Plans and Billing купіть кредити (зазвичай від 5 доларів).\n3. Відкрийте Settings, API keys і натисніть Create Key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nПідписка Claude не замінює баланс API.</string>
+    <string name="tut_deepseek">1. Відкрийте platform.deepseek.com і зареєструйтесь.\n2. Поповніть баланс (вистачить невеликої суми).\n3. Відкрийте API keys і натисніть Create new API key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.</string>
 </resources>
 =====FILE: app/src/main/java/com/horusai/app/Store.kt=====
 package com.horusai.app
@@ -299,19 +355,23 @@ import org.json.JSONObject
 enum class Prov(
     val id: String,
     val title: String,
+    val free: Boolean,
     val defaultModel: String,
     val models: List<String>,
+    val tiers: List<Int>,
     val keyUrl: String
 ) {
-    OPENAI("openai", "ChatGPT", "gpt-5.4-mini", listOf("gpt-5.4-nano", "gpt-5.4-mini", "gpt-5.4"), "https://platform.openai.com/api-keys"),
-    GEMINI("gemini", "Gemini", "gemini-3.8-flash", listOf("gemini-3.5-flash-lite", "gemini-3.8-flash"), "https://aistudio.google.com/apikey"),
-    CLAUDE("claude", "Claude", "claude-haiku-5-5", listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"), "https://console.anthropic.com/settings/keys"),
-    DEEPSEEK("deepseek", "DeepSeek", "deepseek-chat", listOf("deepseek-chat", "deepseek-reasoner"), "https://platform.deepseek.com/api_keys");
+    GEMINI("gemini", "Gemini", true, "gemini-3.5-flash-lite", listOf("gemini-3.5-flash-lite", "gemini-3.8-flash"), listOf(0, 1), "https://aistudio.google.com/apikey"),
+    GROQ("groq", "Groq", true, "llama-3.3-70b-versatile", listOf("llama-3.1-8b-instant", "llama-3.3-70b-versatile"), listOf(0, 1), "https://console.groq.com/keys"),
+    OPENAI("openai", "ChatGPT", false, "gpt-5.4-mini", listOf("gpt-5.4-nano", "gpt-5.4-mini", "gpt-5.4"), listOf(0, 1, 2), "https://platform.openai.com/api-keys"),
+    CLAUDE("claude", "Claude", false, "claude-haiku-5-5", listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"), listOf(0, 1, 2), "https://console.anthropic.com/settings/keys"),
+    DEEPSEEK("deepseek", "DeepSeek", false, "deepseek-chat", listOf("deepseek-chat", "deepseek-reasoner"), listOf(0, 2), "https://platform.deepseek.com/api_keys");
 
     val aliases: List<String>
         get() = when (this) {
             OPENAI -> listOf("chatgpt", "chat gpt", "gpt", "чатгпт", "чат гпт", "чат gpt", "чат джіпіті")
             GEMINI -> listOf("gemini", "джемини", "джеміні", "гемини")
+            GROQ -> listOf("groq", "grok", "грок")
             CLAUDE -> listOf("claude", "клод", "клауд")
             DEEPSEEK -> listOf("deepseek", "дипсик", "діпсік")
         }
@@ -333,9 +393,11 @@ class AppState(ctx: Context) {
     val models = mutableStateMapOf<String, String>()
     val used = mutableStateMapOf<String, Int>()
     val blocked = mutableStateMapOf<String, Boolean>()
+    val locked = mutableStateMapOf<String, Boolean>()
+    val limits = mutableStateMapOf<String, Int>()
     val chats = mutableStateListOf<Chat>()
     var current by mutableStateOf(Chat(0L, ""))
-    var discuss by mutableStateOf(true)
+    var discuss by mutableStateOf(false)
     var busy by mutableStateOf(false)
 
     init {
@@ -344,13 +406,17 @@ class AppState(ctx: Context) {
 
     fun key(p: Prov): String = keys[p.id] ?: ""
     fun model(p: Prov): String = models[p.id]?.takeIf { it.isNotBlank() } ?: p.defaultModel
-    fun active(p: Prov): Boolean = (enabled[p.id] ?: true) && key(p).isNotBlank()
+    fun active(p: Prov): Boolean = (enabled[p.id] ?: true) && key(p).isNotBlank() && locked[p.id] != true
     fun anyActive(): Boolean = Prov.values().any { active(it) }
 
-    fun setKey(p: Prov, k: String) { keys[p.id] = k; save() }
-    fun setEnabled(p: Prov, v: Boolean) { enabled[p.id] = v; save() }
+    fun setKey(p: Prov, k: String) { keys[p.id] = k; locked[p.id] = false; blocked[p.id] = false; save() }
+    fun setEnabled(p: Prov, v: Boolean) { if (locked[p.id] == true) return; enabled[p.id] = v; save() }
     fun setModel(p: Prov, m: String) { models[p.id] = m; save() }
     fun updateDiscuss(v: Boolean) { discuss = v; save() }
+    fun setLocked(p: Prov, v: Boolean) { locked[p.id] = v; enabled[p.id] = !v; if (!v) blocked[p.id] = false; save() }
+    fun setLimit(p: Prov, n: Int) { limits[p.id] = n; save() }
+    fun resetUsed(p: Prov) { used[p.id] = 0; save() }
+    fun pickModel(p: Prov, m: String) { models[p.id] = m; save() }
 
     fun nextModel(p: Prov) {
         val l = p.models
@@ -381,7 +447,9 @@ class AppState(ctx: Context) {
             o.optJSONObject("on")?.let { j -> j.keys().forEach { enabled[it] = j.getBoolean(it) } }
             o.optJSONObject("model")?.let { j -> j.keys().forEach { models[it] = j.getString(it) } }
             o.optJSONObject("used")?.let { j -> j.keys().forEach { used[it] = j.getInt(it) } }
-            discuss = o.optBoolean("discuss", true)
+            o.optJSONObject("locked")?.let { j -> j.keys().forEach { locked[it] = j.getBoolean(it) } }
+            o.optJSONObject("limits")?.let { j -> j.keys().forEach { limits[it] = j.getInt(it) } }
+            discuss = o.optBoolean("discuss2", false)
             val arr = o.optJSONArray("chats") ?: JSONArray()
             for (i in 0 until arr.length()) {
                 val c = arr.getJSONObject(i)
@@ -406,7 +474,9 @@ class AppState(ctx: Context) {
             o.put("on", JSONObject(enabled.toMap()))
             o.put("model", JSONObject(models.toMap()))
             o.put("used", JSONObject(used.toMap()))
-            o.put("discuss", discuss)
+            o.put("locked", JSONObject(locked.toMap()))
+            o.put("limits", JSONObject(limits.toMap()))
+            o.put("discuss2", discuss)
             val arr = JSONArray()
             for (c in chats) {
                 val ms = JSONArray()
@@ -445,8 +515,8 @@ object Api {
         val c = URL(url).openConnection() as HttpURLConnection
         try {
             c.requestMethod = "POST"
-            c.connectTimeout = 20000
-            c.readTimeout = 120000
+            c.connectTimeout = 15000
+            c.readTimeout = 60000
             c.doOutput = true
             c.setRequestProperty("Content-Type", "application/json")
             for ((k, v) in headers) c.setRequestProperty(k, v)
@@ -461,12 +531,28 @@ object Api {
         }
     }
 
-    fun ask(p: Prov, key: String, model: String, system: String, hist: List<Pair<String, String>>): Reply {
-        val r = when (p) {
+    private fun once(p: Prov, key: String, model: String, system: String, hist: List<Pair<String, String>>): Reply =
+        when (p) {
             Prov.GEMINI -> gemini(key, model, system, hist)
             Prov.CLAUDE -> claude(key, model, system, hist)
             Prov.OPENAI -> openAi("https://api.openai.com/v1/chat/completions", key, model, system, hist)
             Prov.DEEPSEEK -> openAi("https://api.deepseek.com/chat/completions", key, model, system, hist)
+            Prov.GROQ -> openAi("https://api.groq.com/openai/v1/chat/completions", key, model, system, hist)
+        }
+
+    fun ask(p: Prov, key: String, model: String, system: String, hist: List<Pair<String, String>>): Reply {
+        val r = try {
+            once(p, key, model, system, hist)
+        } catch (e: java.net.SocketTimeoutException) {
+            Thread.sleep(1500)
+            once(p, key, model, system, hist)
+        } catch (e: ApiError) {
+            if (e.code == 503 || e.code == 500 || e.code == 529) {
+                Thread.sleep(1500)
+                once(p, key, model, system, hist)
+            } else {
+                throw e
+            }
         }
         if (r.tokens > 0) return r
         val chars = system.length + hist.sumOf { it.second.length } + r.text.length
@@ -606,8 +692,19 @@ object Core {
             return rep
         }
         val e = r.exceptionOrNull()
-        if (e is Api.ApiError && (e.code == 429 || e.code == 402)) st.blocked[p.id] = true
+        if (e is Api.ApiError) {
+            val m = (e.message ?: "").lowercase()
+            val money = e.code == 402 || ((e.code == 429 || e.code == 400 || e.code == 403) &&
+                ("credit" in m || "balance" in m || "billing" in m || "quota" in m))
+            if (money && !p.free) st.setLocked(p, true)
+            else if (e.code == 429) st.blocked[p.id] = true
+        }
         return null
+    }
+
+    private fun report(st: AppState, chat: Chat, p: Prov, r: Result<Api.Reply>) {
+        if (st.locked[p.id] == true) return
+        chat.msgs.add(Msg("sys", errText(p, r)))
     }
 
     private fun errText(p: Prov, r: Result<Api.Reply>): String =
@@ -616,8 +713,11 @@ object Core {
     suspend fun handle(ctx: Context, st: AppState, chat: Chat, raw: String) {
         if (st.busy) return
         st.busy = true
+        var startSize = 0
+        val lockedBefore = Prov.values().filter { st.locked[it.id] == true }
         try {
             chat.msgs.add(Msg("user", raw))
+            startSize = chat.msgs.size
             if (chat.title.isBlank()) chat.title = raw.take(28)
             val active = Prov.values().filter { st.active(it) }
             if (active.isEmpty()) {
@@ -638,7 +738,7 @@ object Core {
                 for ((p, r) in res) {
                     val rep = account(st, p, r)
                     if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title))
-                    else chat.msgs.add(Msg("sys", errText(p, r)))
+                    else report(st, chat, p, r)
                 }
             } else if (active.size >= 2 && st.discuss) {
                 val drafts = coroutineScope {
@@ -647,7 +747,7 @@ object Core {
                 val good = ArrayList<Pair<Prov, String>>()
                 for ((p, r) in drafts) {
                     val rep = account(st, p, r)
-                    if (rep != null) good.add(p to rep.text) else chat.msgs.add(Msg("sys", errText(p, r)))
+                    if (rep != null) good.add(p to rep.text) else report(st, chat, p, r)
                 }
                 if (good.isEmpty()) return
                 if (good.size == 1) {
@@ -664,7 +764,7 @@ object Core {
                 if (rep2 != null) {
                     chat.msgs.add(Msg("ai", rep2.text.ifBlank { "…" }, synth.title, names))
                 } else {
-                    chat.msgs.add(Msg("sys", errText(synth, r2)))
+                    report(st, chat, synth, r2)
                     chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, synth.title, synth.title))
                 }
             } else {
@@ -672,9 +772,13 @@ object Core {
                 val r = ask(st, p, system(active, p, ""), hist)
                 val rep = account(st, p, r)
                 if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title))
-                else chat.msgs.add(Msg("sys", errText(p, r)))
+                else report(st, chat, p, r)
             }
         } finally {
+            val newly = Prov.values().filter { st.locked[it.id] == true && it !in lockedBefore }
+            if (newly.isNotEmpty() && chat.msgs.drop(startSize).none { it.role == "ai" }) {
+                chat.msgs.add(Msg("sys", ctx.getString(R.string.paid_off, newly.joinToString(", ") { it.title })))
+            }
             st.busy = false
             st.save()
         }
@@ -721,6 +825,11 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -974,8 +1083,26 @@ fun Bubble(m: Msg) {
     }
 }
 
+private fun tutRes(p: Prov): Int = when (p) {
+    Prov.GEMINI -> R.string.tut_gemini
+    Prov.GROQ -> R.string.tut_groq
+    Prov.OPENAI -> R.string.tut_openai
+    Prov.CLAUDE -> R.string.tut_claude
+    Prov.DEEPSEEK -> R.string.tut_deepseek
+}
+
+private fun tierRes(t: Int): Int = when (t) {
+    0 -> R.string.tier_fast
+    1 -> R.string.tier_mid
+    else -> R.string.tier_strong
+}
+
+private val Red = Color(0xFFFF8A80)
+private val Green = Color(0xFF7BD88F)
+
 @Composable
 fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
+    var menuFor by remember { mutableStateOf<Prov?>(null) }
     Box(
         Modifier.fillMaxSize().background(Color(0x99000000))
             .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onClose() }
@@ -991,40 +1118,80 @@ fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
                 Spacer(Modifier.height(12.dp))
                 for (p in Prov.values()) {
                     val hasKey = st.key(p).isNotBlank()
+                    val locked = st.locked[p.id] == true
                     Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f)) {
-                            Text(p.title, fontWeight = FontWeight.Bold)
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(p.title, fontWeight = FontWeight.Bold)
+                                Spacer(Modifier.width(6.dp))
+                                Text(
+                                    stringResource(if (p.free) R.string.free else R.string.paid),
+                                    fontSize = 11.sp,
+                                    color = if (p.free) Green else Gold
+                                )
+                            }
                             if (!hasKey) {
                                 Text(stringResource(R.string.no_key), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
                             } else {
-                                Text(
-                                    st.model(p) + "  ›",
-                                    fontSize = 13.sp,
-                                    color = Gold,
-                                    modifier = Modifier.clickable { st.nextModel(p) }.padding(vertical = 2.dp)
-                                )
-                                Text(
-                                    stringResource(R.string.used_tokens, st.used[p.id] ?: 0),
-                                    fontSize = 12.sp,
-                                    color = Ink.copy(alpha = 0.6f)
-                                )
-                                if (st.blocked[p.id] == true) {
+                                Box {
                                     Text(
-                                        stringResource(R.string.blocked),
-                                        fontSize = 12.sp,
-                                        color = Color(0xFFFF8A80)
+                                        st.model(p) + "  ›",
+                                        fontSize = 13.sp,
+                                        color = Gold,
+                                        modifier = Modifier.clickable { menuFor = p }.padding(vertical = 2.dp)
                                     )
+                                    DropdownMenu(expanded = menuFor == p, onDismissRequest = { menuFor = null }) {
+                                        p.models.forEachIndexed { i, m ->
+                                            DropdownMenuItem(
+                                                text = {
+                                                    Column {
+                                                        Text(
+                                                            m,
+                                                            fontWeight = if (m == st.model(p)) FontWeight.Bold else FontWeight.Normal
+                                                        )
+                                                        Text(
+                                                            stringResource(tierRes(p.tiers[i])),
+                                                            fontSize = 12.sp,
+                                                            color = Ink.copy(alpha = 0.6f)
+                                                        )
+                                                    }
+                                                },
+                                                onClick = { st.pickModel(p, m); menuFor = null }
+                                            )
+                                        }
+                                    }
+                                }
+                                val lim = st.limits[p.id] ?: 0
+                                val usedT = st.used[p.id] ?: 0
+                                if (lim > 0) {
+                                    val left = maxOf(0, 100 - (usedT * 100L / lim).toInt())
+                                    Text(stringResource(R.string.left_pct, left), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                } else {
+                                    Text(stringResource(R.string.used_tokens, usedT), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                }
+                                if (locked) {
+                                    Text("⚠ " + stringResource(R.string.locked), fontSize = 12.sp, color = Red)
+                                } else if (st.blocked[p.id] == true) {
+                                    Text("⚠ " + stringResource(R.string.blocked), fontSize = 12.sp, color = Red)
                                 }
                             }
                         }
                         Switch(
                             checked = st.active(p),
-                            enabled = hasKey,
+                            enabled = hasKey && !locked,
                             onCheckedChange = { st.setEnabled(p, it) }
                         )
                     }
                     HorizontalDivider()
                 }
+                Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text("Horus AI", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.local_soon), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                    }
+                    Switch(checked = false, enabled = false, onCheckedChange = {})
+                }
+                HorizontalDivider()
                 Spacer(Modifier.height(12.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
@@ -1044,6 +1211,8 @@ fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
 @Composable
 fun SettingsScreen(st: AppState, onBack: () -> Unit) {
     val uri = LocalUriHandler.current
+    val clip = LocalClipboardManager.current
+    var tut by remember { mutableStateOf<Prov?>(null) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -1058,11 +1227,23 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
             Modifier.padding(pad).fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(stringResource(R.string.tutorial_text), fontSize = 13.sp)
+            Text(stringResource(R.string.paid_note), fontSize = 13.sp)
             for (p in Prov.values()) {
                 Card(Modifier.fillMaxWidth()) {
-                    Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(p.title, fontWeight = FontWeight.Bold, color = Gold)
+                    Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(p.title, fontWeight = FontWeight.Bold, color = Gold)
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                stringResource(if (p.free) R.string.free else R.string.paid),
+                                fontSize = 12.sp,
+                                color = if (p.free) Green else Gold
+                            )
+                        }
+                        if (st.locked[p.id] == true) {
+                            Text("⚠ " + stringResource(R.string.locked), color = Red, fontSize = 13.sp)
+                            TextButton(onClick = { st.setLocked(p, false) }) { Text(stringResource(R.string.unlock_btn)) }
+                        }
                         OutlinedTextField(
                             value = st.key(p),
                             onValueChange = { st.setKey(p, it.trim()) },
@@ -1071,6 +1252,14 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth()
                         )
+                        Row {
+                            TextButton(onClick = {
+                                val t = clip.getText()?.text
+                                if (!t.isNullOrBlank()) st.setKey(p, t.trim())
+                            }) { Text(stringResource(R.string.paste)) }
+                            TextButton(onClick = { uri.openUri(p.keyUrl) }) { Text(stringResource(R.string.get_key)) }
+                            TextButton(onClick = { tut = p }) { Text(stringResource(R.string.tutorial_btn)) }
+                        }
                         OutlinedTextField(
                             value = st.models[p.id] ?: p.defaultModel,
                             onValueChange = { st.setModel(p, it.trim()) },
@@ -1078,13 +1267,31 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth()
                         )
-                        TextButton(onClick = { uri.openUri(p.keyUrl) }) { Text(stringResource(R.string.get_key)) }
+                        OutlinedTextField(
+                            value = (st.limits[p.id] ?: 0).let { if (it == 0) "" else it.toString() },
+                            onValueChange = { v -> st.setLimit(p, v.filter { c -> c.isDigit() }.take(9).toIntOrNull() ?: 0) },
+                            label = { Text(stringResource(R.string.limit_label)) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        TextButton(onClick = { st.resetUsed(p) }) { Text(stringResource(R.string.reset_counter)) }
                     }
                 }
             }
             Text(stringResource(R.string.about_title), style = MaterialTheme.typography.titleMedium)
             Text(stringResource(R.string.about_text), fontSize = 13.sp)
         }
+    }
+    val t = tut
+    if (t != null) {
+        AlertDialog(
+            onDismissRequest = { tut = null },
+            title = { Text(t.title) },
+            text = { Column(Modifier.verticalScroll(rememberScrollState())) { Text(stringResource(tutRes(t))) } },
+            confirmButton = { TextButton(onClick = { uri.openUri(t.keyUrl) }) { Text(stringResource(R.string.get_key)) } },
+            dismissButton = { TextButton(onClick = { tut = null }) { Text(stringResource(R.string.close)) } }
+        )
     }
 }
 
