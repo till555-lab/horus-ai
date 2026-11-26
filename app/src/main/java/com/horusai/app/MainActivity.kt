@@ -79,6 +79,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
 
 private val Gold = Color(0xFFF5B942)
@@ -200,6 +208,14 @@ fun ChatScreen(st: AppState, onMenu: () -> Unit, onPanel: () -> Unit) {
     val ctx = LocalContext.current
     var input by remember { mutableStateOf("") }
     val list = rememberLazyListState()
+    var peek by remember { mutableStateOf(false) }
+    LaunchedEffect(st.peekTick) {
+        if (st.peekTick > 0) {
+            peek = true
+            delay(4000)
+            peek = false
+        }
+    }
 
     LaunchedEffect(chat.id, chat.msgs.size, st.busy) {
         val n = chat.msgs.size + if (st.busy) 1 else 0
@@ -214,6 +230,13 @@ fun ChatScreen(st: AppState, onMenu: () -> Unit, onPanel: () -> Unit) {
                 },
                 navigationIcon = { IconButton(onClick = onMenu) { Icon(Icons.Default.Menu, null) } },
                 actions = {
+                    AnimatedVisibility(
+                        visible = peek,
+                        enter = slideInHorizontally { it } + fadeIn(),
+                        exit = slideOutHorizontally { it } + fadeOut()
+                    ) {
+                        Text("⚠", color = Red, fontSize = 20.sp)
+                    }
                     IconButton(onClick = onPanel) {
                         Icon(Icons.Default.Face, stringResource(R.string.ai_panel_title))
                     }
@@ -302,6 +325,9 @@ private fun tutRes(p: Prov): Int = when (p) {
     Prov.OPENAI -> R.string.tut_openai
     Prov.CLAUDE -> R.string.tut_claude
     Prov.DEEPSEEK -> R.string.tut_deepseek
+    Prov.CEREBRAS -> R.string.tut_cerebras
+    Prov.OPENROUTER -> R.string.tut_openrouter
+    Prov.MISTRAL -> R.string.tut_mistral
 }
 
 private fun tierRes(t: Int): Int = when (t) {
@@ -330,6 +356,14 @@ fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
                 Text(stringResource(R.string.tap_model), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
                 Spacer(Modifier.height(12.dp))
                 for (p in Prov.values()) {
+                    if (p == Prov.values().first { it.free == p.free }) {
+                        Text(
+                            stringResource(if (p.free) R.string.cat_free else R.string.cat_paid),
+                            color = Gold,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
                     val hasKey = st.key(p).isNotBlank()
                     val locked = st.locked[p.id] == true
                     Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -426,6 +460,11 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
     val uri = LocalUriHandler.current
     val clip = LocalClipboardManager.current
     var tut by remember { mutableStateOf<Prov?>(null) }
+    var picker by remember { mutableStateOf<Pair<Prov, List<String>>?>(null) }
+    var loadingP by remember { mutableStateOf<Prov?>(null) }
+    var errMsg by remember { mutableStateOf<String?>(null) }
+    val needKey = stringResource(R.string.need_key_first)
+    val noModels = stringResource(R.string.no_models)
     Scaffold(
         topBar = {
             TopAppBar(
@@ -442,6 +481,14 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
         ) {
             Text(stringResource(R.string.paid_note), fontSize = 13.sp)
             for (p in Prov.values()) {
+            if (p == Prov.values().first { it.free == p.free }) {
+                Text(
+                    stringResource(if (p.free) R.string.cat_free else R.string.cat_paid),
+                    color = Gold,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
                 Card(Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -480,6 +527,21 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth()
                         )
+                        TextButton(onClick = {
+                            if (st.key(p).isBlank()) {
+                                errMsg = needKey
+                            } else {
+                                loadingP = p
+                                st.scope.launch {
+                                    val r = withContext(Dispatchers.IO) { runCatching { Api.models(p, st.key(p)) } }
+                                    loadingP = null
+                                    val l = r.getOrNull()
+                                    if (l == null) errMsg = r.exceptionOrNull()?.message ?: "error"
+                                    else if (l.isEmpty()) errMsg = noModels
+                                    else picker = p to l
+                                }
+                            }
+                        }) { Text(stringResource(if (loadingP == p) R.string.loading_models else R.string.refresh_models)) }
                         OutlinedTextField(
                             value = (st.limits[p.id] ?: 0).let { if (it == 0) "" else it.toString() },
                             onValueChange = { v -> st.setLimit(p, v.filter { c -> c.isDigit() }.take(9).toIntOrNull() ?: 0) },
@@ -495,6 +557,33 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
             Text(stringResource(R.string.about_title), style = MaterialTheme.typography.titleMedium)
             Text(stringResource(R.string.about_text), fontSize = 13.sp)
         }
+    }
+    val pk = picker
+    if (pk != null) {
+        AlertDialog(
+            onDismissRequest = { picker = null },
+            title = { Text(stringResource(R.string.pick_model)) },
+            text = {
+                Column(Modifier.verticalScroll(rememberScrollState())) {
+                    pk.second.forEach { m ->
+                        Text(
+                            m,
+                            modifier = Modifier.fillMaxWidth().clickable { st.pickModel(pk.first, m); picker = null }.padding(vertical = 10.dp)
+                        )
+                    }
+                }
+            },
+            confirmButton = {},
+            dismissButton = { TextButton(onClick = { picker = null }) { Text(stringResource(R.string.close)) } }
+        )
+    }
+    val em = errMsg
+    if (em != null) {
+        AlertDialog(
+            onDismissRequest = { errMsg = null },
+            text = { Text(em) },
+            confirmButton = { TextButton(onClick = { errMsg = null }) { Text(stringResource(R.string.close)) } }
+        )
     }
     val t = tut
     if (t != null) {

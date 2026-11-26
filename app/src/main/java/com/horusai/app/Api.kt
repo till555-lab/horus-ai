@@ -41,15 +41,13 @@ object Api {
         when (p) {
             Prov.GEMINI -> gemini(key, model, system, hist)
             Prov.CLAUDE -> claude(key, model, system, hist)
-            Prov.OPENAI -> openAi("https://api.openai.com/v1/chat/completions", key, model, system, hist)
-            Prov.DEEPSEEK -> openAi("https://api.deepseek.com/chat/completions", key, model, system, hist)
-            Prov.GROQ -> openAi("https://api.groq.com/openai/v1/chat/completions", key, model, system, hist)
+            else -> openAi(base(p) + "/chat/completions", key, model, system, hist)
         }
 
     fun ask(p: Prov, key: String, model: String, system: String, hist: List<Pair<String, String>>): Reply {
         val r = try {
             once(p, key, model, system, hist)
-        } catch (e: java.net.SocketTimeoutException) {
+        } catch (e: java.io.IOException) {
             Thread.sleep(1500)
             once(p, key, model, system, hist)
         } catch (e: ApiError) {
@@ -63,6 +61,62 @@ object Api {
         if (r.tokens > 0) return r
         val chars = system.length + hist.sumOf { it.second.length } + r.text.length
         return Reply(r.text, chars / 4)
+    }
+
+    private fun base(p: Prov): String = when (p) {
+        Prov.OPENAI -> "https://api.openai.com/v1"
+        Prov.DEEPSEEK -> "https://api.deepseek.com"
+        Prov.GROQ -> "https://api.groq.com/openai/v1"
+        Prov.CEREBRAS -> "https://api.cerebras.ai/v1"
+        Prov.OPENROUTER -> "https://openrouter.ai/api/v1"
+        Prov.MISTRAL -> "https://api.mistral.ai/v1"
+        else -> ""
+    }
+
+    private fun get(url: String, headers: Map<String, String>): String {
+        val c = URL(url).openConnection() as HttpURLConnection
+        try {
+            c.requestMethod = "GET"
+            c.connectTimeout = 15000
+            c.readTimeout = 30000
+            for ((k, v) in headers) c.setRequestProperty(k, v)
+            val code = c.responseCode
+            val stream = if (code in 200..299) c.inputStream else c.errorStream
+            val text = stream?.bufferedReader()?.use { it.readText() } ?: ""
+            if (code !in 200..299) throw ApiError(code, errMsg(text))
+            return text
+        } finally {
+            c.disconnect()
+        }
+    }
+
+    fun models(p: Prov, key: String): List<String> {
+        val out = ArrayList<String>()
+        when (p) {
+            Prov.GEMINI -> {
+                val res = JSONObject(get("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", mapOf("x-goog-api-key" to key)))
+                val arr = res.optJSONArray("models") ?: JSONArray()
+                for (i in 0 until arr.length()) {
+                    val o = arr.getJSONObject(i)
+                    val methods = o.optJSONArray("supportedGenerationMethods") ?: continue
+                    var ok = false
+                    for (k in 0 until methods.length()) if (methods.getString(k) == "generateContent") ok = true
+                    if (ok) out.add(o.getString("name").removePrefix("models/"))
+                }
+            }
+            Prov.CLAUDE -> {
+                val res = JSONObject(get("https://api.anthropic.com/v1/models?limit=100", mapOf("x-api-key" to key, "anthropic-version" to "2023-06-01")))
+                val arr = res.optJSONArray("data") ?: JSONArray()
+                for (i in 0 until arr.length()) out.add(arr.getJSONObject(i).getString("id"))
+            }
+            else -> {
+                val res = JSONObject(get(base(p) + "/models", mapOf("Authorization" to "Bearer $key")))
+                val arr = res.optJSONArray("data") ?: JSONArray()
+                for (i in 0 until arr.length()) out.add(arr.getJSONObject(i).getString("id"))
+            }
+        }
+        val list = if (p == Prov.OPENROUTER) out.filter { it.endsWith(":free") || it == "openrouter/free" } else out
+        return list.sorted().take(100)
     }
 
     private fun openAi(url: String, key: String, model: String, system: String, hist: List<Pair<String, String>>): Reply {

@@ -49,4 +49,14 @@
     <string name="tut_openai">1. Відкрийте platform.openai.com і увійдіть.\n2. У розділі Billing додайте спосіб оплати й поповніть баланс (зазвичай від 5 доларів).\n3. Відкрийте API keys і натисніть Create new secret key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nПідписка ChatGPT не замінює баланс API.</string>
     <string name="tut_claude">1. Відкрийте console.anthropic.com і увійдіть.\n2. У Plans and Billing купіть кредити (зазвичай від 5 доларів).\n3. Відкрийте Settings, API keys і натисніть Create Key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nПідписка Claude не замінює баланс API.</string>
     <string name="tut_deepseek">1. Відкрийте platform.deepseek.com і зареєструйтесь.\n2. Поповніть баланс (вистачить невеликої суми).\n3. Відкрийте API keys і натисніть Create new API key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.</string>
+    <string name="cat_free">Безкоштовні ШІ</string>
+    <string name="cat_paid">Платні ШІ</string>
+    <string name="refresh_models">Оновити список моделей</string>
+    <string name="loading_models">Завантаження…</string>
+    <string name="pick_model">Оберіть модель</string>
+    <string name="no_models">Моделей не знайдено</string>
+    <string name="need_key_first">Спочатку введіть ключ</string>
+    <string name="tut_cerebras">1. Натисніть «Отримати ключ» (cloud.cerebras.ai).\n2. Зареєструйтесь або увійдіть.\n3. Відкрийте API Keys і створіть ключ.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
+    <string name="tut_openrouter">1. Натисніть «Отримати ключ» (openrouter.ai/keys).\n2. Зареєструйтесь або увійдіть.\n3. Натисніть Create Key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nУ безкоштовних моделей є денні ліміти. Обрати модель можна кнопкою «Оновити список моделей».</string>
+    <string name="tut_mistral">1. Натисніть «Отримати ключ» (console.mistral.ai/api-keys).\n2. Зареєструйтесь (може знадобитися номер телефону).\n3. Оберіть безкоштовний план і створіть API-ключ.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
 </resources>

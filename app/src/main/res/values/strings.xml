@@ -49,4 +49,14 @@
     <string name="tut_openai">1. Open platform.openai.com and sign in.\n2. In Billing add a payment method and top up the balance (usually from 5 USD).\n3. Open API keys and tap Create new secret key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nA ChatGPT subscription does not work as an API balance.</string>
     <string name="tut_claude">1. Open console.anthropic.com and sign in.\n2. In Plans and Billing buy credits (usually from 5 USD).\n3. Open Settings, API keys and tap Create Key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nA Claude subscription does not work as an API balance.</string>
     <string name="tut_deepseek">1. Open platform.deepseek.com and sign up.\n2. Top up the balance (a small amount is enough).\n3. Open API keys and tap Create new API key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.</string>
+    <string name="cat_free">Free AIs</string>
+    <string name="cat_paid">Paid AIs</string>
+    <string name="refresh_models">Refresh model list</string>
+    <string name="loading_models">Loading…</string>
+    <string name="pick_model">Pick a model</string>
+    <string name="no_models">No models found</string>
+    <string name="need_key_first">Enter the key first</string>
+    <string name="tut_cerebras">1. Tap Get key (cloud.cerebras.ai).\n2. Sign up or sign in.\n3. Open API Keys and create a key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
+    <string name="tut_openrouter">1. Tap Get key (openrouter.ai/keys).\n2. Sign up or sign in.\n3. Tap Create Key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nFree models have daily limits. Use Refresh model list to pick one.</string>
+    <string name="tut_mistral">1. Tap Get key (console.mistral.ai/api-keys).\n2. Sign up (a phone number may be required).\n3. Choose the free plan and create an API key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
 </resources>
