@@ -21,8 +21,8 @@ object Api {
         val c = URL(url).openConnection() as HttpURLConnection
         try {
             c.requestMethod = "POST"
-            c.connectTimeout = 20000
-            c.readTimeout = 120000
+            c.connectTimeout = 15000
+            c.readTimeout = 60000
             c.doOutput = true
             c.setRequestProperty("Content-Type", "application/json")
             for ((k, v) in headers) c.setRequestProperty(k, v)
@@ -37,12 +37,28 @@ object Api {
         }
     }
 
-    fun ask(p: Prov, key: String, model: String, system: String, hist: List<Pair<String, String>>): Reply {
-        val r = when (p) {
+    private fun once(p: Prov, key: String, model: String, system: String, hist: List<Pair<String, String>>): Reply =
+        when (p) {
             Prov.GEMINI -> gemini(key, model, system, hist)
             Prov.CLAUDE -> claude(key, model, system, hist)
             Prov.OPENAI -> openAi("https://api.openai.com/v1/chat/completions", key, model, system, hist)
             Prov.DEEPSEEK -> openAi("https://api.deepseek.com/chat/completions", key, model, system, hist)
+            Prov.GROQ -> openAi("https://api.groq.com/openai/v1/chat/completions", key, model, system, hist)
+        }
+
+    fun ask(p: Prov, key: String, model: String, system: String, hist: List<Pair<String, String>>): Reply {
+        val r = try {
+            once(p, key, model, system, hist)
+        } catch (e: java.net.SocketTimeoutException) {
+            Thread.sleep(1500)
+            once(p, key, model, system, hist)
+        } catch (e: ApiError) {
+            if (e.code == 503 || e.code == 500 || e.code == 529) {
+                Thread.sleep(1500)
+                once(p, key, model, system, hist)
+            } else {
+                throw e
+            }
         }
         if (r.tokens > 0) return r
         val chars = system.length + hist.sumOf { it.second.length } + r.text.length

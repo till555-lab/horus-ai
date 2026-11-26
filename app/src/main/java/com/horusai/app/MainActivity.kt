@@ -38,6 +38,11 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -291,8 +296,26 @@ fun Bubble(m: Msg) {
     }
 }
 
+private fun tutRes(p: Prov): Int = when (p) {
+    Prov.GEMINI -> R.string.tut_gemini
+    Prov.GROQ -> R.string.tut_groq
+    Prov.OPENAI -> R.string.tut_openai
+    Prov.CLAUDE -> R.string.tut_claude
+    Prov.DEEPSEEK -> R.string.tut_deepseek
+}
+
+private fun tierRes(t: Int): Int = when (t) {
+    0 -> R.string.tier_fast
+    1 -> R.string.tier_mid
+    else -> R.string.tier_strong
+}
+
+private val Red = Color(0xFFFF8A80)
+private val Green = Color(0xFF7BD88F)
+
 @Composable
 fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
+    var menuFor by remember { mutableStateOf<Prov?>(null) }
     Box(
         Modifier.fillMaxSize().background(Color(0x99000000))
             .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onClose() }
@@ -308,40 +331,80 @@ fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
                 Spacer(Modifier.height(12.dp))
                 for (p in Prov.values()) {
                     val hasKey = st.key(p).isNotBlank()
+                    val locked = st.locked[p.id] == true
                     Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f)) {
-                            Text(p.title, fontWeight = FontWeight.Bold)
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(p.title, fontWeight = FontWeight.Bold)
+                                Spacer(Modifier.width(6.dp))
+                                Text(
+                                    stringResource(if (p.free) R.string.free else R.string.paid),
+                                    fontSize = 11.sp,
+                                    color = if (p.free) Green else Gold
+                                )
+                            }
                             if (!hasKey) {
                                 Text(stringResource(R.string.no_key), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
                             } else {
-                                Text(
-                                    st.model(p) + "  ›",
-                                    fontSize = 13.sp,
-                                    color = Gold,
-                                    modifier = Modifier.clickable { st.nextModel(p) }.padding(vertical = 2.dp)
-                                )
-                                Text(
-                                    stringResource(R.string.used_tokens, st.used[p.id] ?: 0),
-                                    fontSize = 12.sp,
-                                    color = Ink.copy(alpha = 0.6f)
-                                )
-                                if (st.blocked[p.id] == true) {
+                                Box {
                                     Text(
-                                        stringResource(R.string.blocked),
-                                        fontSize = 12.sp,
-                                        color = Color(0xFFFF8A80)
+                                        st.model(p) + "  ›",
+                                        fontSize = 13.sp,
+                                        color = Gold,
+                                        modifier = Modifier.clickable { menuFor = p }.padding(vertical = 2.dp)
                                     )
+                                    DropdownMenu(expanded = menuFor == p, onDismissRequest = { menuFor = null }) {
+                                        p.models.forEachIndexed { i, m ->
+                                            DropdownMenuItem(
+                                                text = {
+                                                    Column {
+                                                        Text(
+                                                            m,
+                                                            fontWeight = if (m == st.model(p)) FontWeight.Bold else FontWeight.Normal
+                                                        )
+                                                        Text(
+                                                            stringResource(tierRes(p.tiers[i])),
+                                                            fontSize = 12.sp,
+                                                            color = Ink.copy(alpha = 0.6f)
+                                                        )
+                                                    }
+                                                },
+                                                onClick = { st.pickModel(p, m); menuFor = null }
+                                            )
+                                        }
+                                    }
+                                }
+                                val lim = st.limits[p.id] ?: 0
+                                val usedT = st.used[p.id] ?: 0
+                                if (lim > 0) {
+                                    val left = maxOf(0, 100 - (usedT * 100L / lim).toInt())
+                                    Text(stringResource(R.string.left_pct, left), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                } else {
+                                    Text(stringResource(R.string.used_tokens, usedT), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                }
+                                if (locked) {
+                                    Text("⚠ " + stringResource(R.string.locked), fontSize = 12.sp, color = Red)
+                                } else if (st.blocked[p.id] == true) {
+                                    Text("⚠ " + stringResource(R.string.blocked), fontSize = 12.sp, color = Red)
                                 }
                             }
                         }
                         Switch(
                             checked = st.active(p),
-                            enabled = hasKey,
+                            enabled = hasKey && !locked,
                             onCheckedChange = { st.setEnabled(p, it) }
                         )
                     }
                     HorizontalDivider()
                 }
+                Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text("Horus AI", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.local_soon), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                    }
+                    Switch(checked = false, enabled = false, onCheckedChange = {})
+                }
+                HorizontalDivider()
                 Spacer(Modifier.height(12.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
@@ -361,6 +424,8 @@ fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
 @Composable
 fun SettingsScreen(st: AppState, onBack: () -> Unit) {
     val uri = LocalUriHandler.current
+    val clip = LocalClipboardManager.current
+    var tut by remember { mutableStateOf<Prov?>(null) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -375,11 +440,23 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
             Modifier.padding(pad).fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(stringResource(R.string.tutorial_text), fontSize = 13.sp)
+            Text(stringResource(R.string.paid_note), fontSize = 13.sp)
             for (p in Prov.values()) {
                 Card(Modifier.fillMaxWidth()) {
-                    Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(p.title, fontWeight = FontWeight.Bold, color = Gold)
+                    Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(p.title, fontWeight = FontWeight.Bold, color = Gold)
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                stringResource(if (p.free) R.string.free else R.string.paid),
+                                fontSize = 12.sp,
+                                color = if (p.free) Green else Gold
+                            )
+                        }
+                        if (st.locked[p.id] == true) {
+                            Text("⚠ " + stringResource(R.string.locked), color = Red, fontSize = 13.sp)
+                            TextButton(onClick = { st.setLocked(p, false) }) { Text(stringResource(R.string.unlock_btn)) }
+                        }
                         OutlinedTextField(
                             value = st.key(p),
                             onValueChange = { st.setKey(p, it.trim()) },
@@ -388,6 +465,14 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth()
                         )
+                        Row {
+                            TextButton(onClick = {
+                                val t = clip.getText()?.text
+                                if (!t.isNullOrBlank()) st.setKey(p, t.trim())
+                            }) { Text(stringResource(R.string.paste)) }
+                            TextButton(onClick = { uri.openUri(p.keyUrl) }) { Text(stringResource(R.string.get_key)) }
+                            TextButton(onClick = { tut = p }) { Text(stringResource(R.string.tutorial_btn)) }
+                        }
                         OutlinedTextField(
                             value = st.models[p.id] ?: p.defaultModel,
                             onValueChange = { st.setModel(p, it.trim()) },
@@ -395,13 +480,31 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth()
                         )
-                        TextButton(onClick = { uri.openUri(p.keyUrl) }) { Text(stringResource(R.string.get_key)) }
+                        OutlinedTextField(
+                            value = (st.limits[p.id] ?: 0).let { if (it == 0) "" else it.toString() },
+                            onValueChange = { v -> st.setLimit(p, v.filter { c -> c.isDigit() }.take(9).toIntOrNull() ?: 0) },
+                            label = { Text(stringResource(R.string.limit_label)) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        TextButton(onClick = { st.resetUsed(p) }) { Text(stringResource(R.string.reset_counter)) }
                     }
                 }
             }
             Text(stringResource(R.string.about_title), style = MaterialTheme.typography.titleMedium)
             Text(stringResource(R.string.about_text), fontSize = 13.sp)
         }
+    }
+    val t = tut
+    if (t != null) {
+        AlertDialog(
+            onDismissRequest = { tut = null },
+            title = { Text(t.title) },
+            text = { Column(Modifier.verticalScroll(rememberScrollState())) { Text(stringResource(tutRes(t))) } },
+            confirmButton = { TextButton(onClick = { uri.openUri(t.keyUrl) }) { Text(stringResource(R.string.get_key)) } },
+            dismissButton = { TextButton(onClick = { tut = null }) { Text(stringResource(R.string.close)) } }
+        )
     }
 }
 

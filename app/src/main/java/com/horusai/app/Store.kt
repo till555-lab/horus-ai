@@ -15,19 +15,23 @@ import org.json.JSONObject
 enum class Prov(
     val id: String,
     val title: String,
+    val free: Boolean,
     val defaultModel: String,
     val models: List<String>,
+    val tiers: List<Int>,
     val keyUrl: String
 ) {
-    OPENAI("openai", "ChatGPT", "gpt-5.4-mini", listOf("gpt-5.4-nano", "gpt-5.4-mini", "gpt-5.4"), "https://platform.openai.com/api-keys"),
-    GEMINI("gemini", "Gemini", "gemini-3.8-flash", listOf("gemini-3.5-flash-lite", "gemini-3.8-flash"), "https://aistudio.google.com/apikey"),
-    CLAUDE("claude", "Claude", "claude-haiku-5-5", listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"), "https://console.anthropic.com/settings/keys"),
-    DEEPSEEK("deepseek", "DeepSeek", "deepseek-chat", listOf("deepseek-chat", "deepseek-reasoner"), "https://platform.deepseek.com/api_keys");
+    GEMINI("gemini", "Gemini", true, "gemini-3.5-flash-lite", listOf("gemini-3.5-flash-lite", "gemini-3.8-flash"), listOf(0, 1), "https://aistudio.google.com/apikey"),
+    GROQ("groq", "Groq", true, "llama-3.3-70b-versatile", listOf("llama-3.1-8b-instant", "llama-3.3-70b-versatile"), listOf(0, 1), "https://console.groq.com/keys"),
+    OPENAI("openai", "ChatGPT", false, "gpt-5.4-mini", listOf("gpt-5.4-nano", "gpt-5.4-mini", "gpt-5.4"), listOf(0, 1, 2), "https://platform.openai.com/api-keys"),
+    CLAUDE("claude", "Claude", false, "claude-haiku-5-5", listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"), listOf(0, 1, 2), "https://console.anthropic.com/settings/keys"),
+    DEEPSEEK("deepseek", "DeepSeek", false, "deepseek-chat", listOf("deepseek-chat", "deepseek-reasoner"), listOf(0, 2), "https://platform.deepseek.com/api_keys");
 
     val aliases: List<String>
         get() = when (this) {
             OPENAI -> listOf("chatgpt", "chat gpt", "gpt", "чатгпт", "чат гпт", "чат gpt", "чат джіпіті")
             GEMINI -> listOf("gemini", "джемини", "джеміні", "гемини")
+            GROQ -> listOf("groq", "grok", "грок")
             CLAUDE -> listOf("claude", "клод", "клауд")
             DEEPSEEK -> listOf("deepseek", "дипсик", "діпсік")
         }
@@ -49,9 +53,11 @@ class AppState(ctx: Context) {
     val models = mutableStateMapOf<String, String>()
     val used = mutableStateMapOf<String, Int>()
     val blocked = mutableStateMapOf<String, Boolean>()
+    val locked = mutableStateMapOf<String, Boolean>()
+    val limits = mutableStateMapOf<String, Int>()
     val chats = mutableStateListOf<Chat>()
     var current by mutableStateOf(Chat(0L, ""))
-    var discuss by mutableStateOf(true)
+    var discuss by mutableStateOf(false)
     var busy by mutableStateOf(false)
 
     init {
@@ -60,13 +66,17 @@ class AppState(ctx: Context) {
 
     fun key(p: Prov): String = keys[p.id] ?: ""
     fun model(p: Prov): String = models[p.id]?.takeIf { it.isNotBlank() } ?: p.defaultModel
-    fun active(p: Prov): Boolean = (enabled[p.id] ?: true) && key(p).isNotBlank()
+    fun active(p: Prov): Boolean = (enabled[p.id] ?: true) && key(p).isNotBlank() && locked[p.id] != true
     fun anyActive(): Boolean = Prov.values().any { active(it) }
 
-    fun setKey(p: Prov, k: String) { keys[p.id] = k; save() }
-    fun setEnabled(p: Prov, v: Boolean) { enabled[p.id] = v; save() }
+    fun setKey(p: Prov, k: String) { keys[p.id] = k; locked[p.id] = false; blocked[p.id] = false; save() }
+    fun setEnabled(p: Prov, v: Boolean) { if (locked[p.id] == true) return; enabled[p.id] = v; save() }
     fun setModel(p: Prov, m: String) { models[p.id] = m; save() }
     fun updateDiscuss(v: Boolean) { discuss = v; save() }
+    fun setLocked(p: Prov, v: Boolean) { locked[p.id] = v; enabled[p.id] = !v; if (!v) blocked[p.id] = false; save() }
+    fun setLimit(p: Prov, n: Int) { limits[p.id] = n; save() }
+    fun resetUsed(p: Prov) { used[p.id] = 0; save() }
+    fun pickModel(p: Prov, m: String) { models[p.id] = m; save() }
 
     fun nextModel(p: Prov) {
         val l = p.models
@@ -97,7 +107,9 @@ class AppState(ctx: Context) {
             o.optJSONObject("on")?.let { j -> j.keys().forEach { enabled[it] = j.getBoolean(it) } }
             o.optJSONObject("model")?.let { j -> j.keys().forEach { models[it] = j.getString(it) } }
             o.optJSONObject("used")?.let { j -> j.keys().forEach { used[it] = j.getInt(it) } }
-            discuss = o.optBoolean("discuss", true)
+            o.optJSONObject("locked")?.let { j -> j.keys().forEach { locked[it] = j.getBoolean(it) } }
+            o.optJSONObject("limits")?.let { j -> j.keys().forEach { limits[it] = j.getInt(it) } }
+            discuss = o.optBoolean("discuss2", false)
             val arr = o.optJSONArray("chats") ?: JSONArray()
             for (i in 0 until arr.length()) {
                 val c = arr.getJSONObject(i)
@@ -122,7 +134,9 @@ class AppState(ctx: Context) {
             o.put("on", JSONObject(enabled.toMap()))
             o.put("model", JSONObject(models.toMap()))
             o.put("used", JSONObject(used.toMap()))
-            o.put("discuss", discuss)
+            o.put("locked", JSONObject(locked.toMap()))
+            o.put("limits", JSONObject(limits.toMap()))
+            o.put("discuss2", discuss)
             val arr = JSONArray()
             for (c in chats) {
                 val ms = JSONArray()

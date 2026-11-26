@@ -13,7 +13,7 @@
     <string name="no_keys_text">Horus поєднує кілька ШІ в одному чаті, але потребує ваших власних API-ключів. Без ключів він не може відповідати.</string>
     <string name="how_to_get">Як отримати ключі</string>
     <string name="close">Закрити</string>
-    <string name="tutorial_text">Як отримати ключ:\n1. У налаштуваннях натисніть «Отримати ключ» поруч із потрібним ШІ.\n2. Увійдіть в акаунт (можна створити окремий лише для цього).\n3. Створіть API-ключ і скопіюйте його.\n4. Вставте його в поле в налаштуваннях.\n\nAPI-ключ — це не те саме, що підписка ChatGPT чи Claude, він оплачується окремо. У Gemini є безкоштовний ліміт.</string>
+    <string name="tutorial_text">Найпростіше почати з Gemini або Groq: вони безкоштовні. Відкрийте налаштування, оберіть ШІ й натисніть «Туторіал». Платним ШІ (ChatGPT, Claude, DeepSeek) потрібен передоплачений баланс.</string>
     <string name="ai_panel_title">ШІ в цьому чаті</string>
     <string name="no_key">Немає ключа</string>
     <string name="used_tokens">≈ %1$d токенів витрачено</string>
@@ -29,4 +29,24 @@
     <string name="about_text">Horus AI поєднує кілька ШІ в одному чаті. Почніть повідомлення з імені, наприклад «Клод, ...», щоб спитати лише цей ШІ. Ключі та чати зберігаються на цьому пристрої; повідомлення надходять лише до тих ШІ, які ви ввімкнули. Мова застосунку збігається з мовою телефону.</string>
     <string name="err_no_keys">Спочатку додайте хоча б один API-ключ у налаштуваннях.</string>
     <string name="err_ai_off">%s вимкнено або без ключа.</string>
+    <string name="free">безкоштовна</string>
+    <string name="paid">платна</string>
+    <string name="locked">Платна модель: недоступна (немає балансу)</string>
+    <string name="paid_off">%s — платна модель, її вимкнено (немає балансу або проблема з ключем). Поповніть баланс і введіть ключ заново.</string>
+    <string name="tutorial_btn">Туторіал</string>
+    <string name="paste">Вставити</string>
+    <string name="limit_label">Ліміт токенів (за бажанням, для % залишку)</string>
+    <string name="left_pct">≈ %1$d%% залишилось</string>
+    <string name="reset_counter">Скинути лічильник</string>
+    <string name="unlock_btn">Я поповнив баланс</string>
+    <string name="tier_fast">швидка, дешева</string>
+    <string name="tier_mid">збалансована</string>
+    <string name="tier_strong">потужна, витрачає більше токенів</string>
+    <string name="local_soon">Локальна модель, скоро</string>
+    <string name="paid_note">Безкоштовні ШІ (Gemini, Groq) працюють без оплати. Платним (ChatGPT, Claude, DeepSeek) потрібен баланс на API-акаунті; підписка на чат не враховується.</string>
+    <string name="tut_gemini">1. Натисніть «Отримати ключ» (aistudio.google.com/apikey).\n2. Увійдіть в акаунт Google.\n3. Натисніть Create API key.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
+    <string name="tut_groq">1. Натисніть «Отримати ключ» (console.groq.com/keys).\n2. Зареєструйтесь або увійдіть.\n3. Натисніть Create API Key і введіть будь-яку назву.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
+    <string name="tut_openai">1. Відкрийте platform.openai.com і увійдіть.\n2. У розділі Billing додайте спосіб оплати й поповніть баланс (зазвичай від 5 доларів).\n3. Відкрийте API keys і натисніть Create new secret key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nПідписка ChatGPT не замінює баланс API.</string>
+    <string name="tut_claude">1. Відкрийте console.anthropic.com і увійдіть.\n2. У Plans and Billing купіть кредити (зазвичай від 5 доларів).\n3. Відкрийте Settings, API keys і натисніть Create Key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nПідписка Claude не замінює баланс API.</string>
+    <string name="tut_deepseek">1. Відкрийте platform.deepseek.com і зареєструйтесь.\n2. Поповніть баланс (вистачить невеликої суми).\n3. Відкрийте API keys і натисніть Create new API key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.</string>
 </resources>

@@ -13,7 +13,7 @@
     <string name="no_keys_text">Horus connects several AIs in one chat, but it needs your own API keys to talk to them. Without keys it cannot answer.</string>
     <string name="how_to_get">How to get keys</string>
     <string name="close">Close</string>
-    <string name="tutorial_text">How to get a key:\n1. Tap Get key next to an AI in Settings.\n2. Sign in (you can use a separate account just for this).\n3. Create an API key and copy it.\n4. Paste it into the field in Settings.\n\nAn API key is not the same as a ChatGPT or Claude subscription and is billed separately. Gemini has a free tier.</string>
+    <string name="tutorial_text">The easiest start is Gemini or Groq: they are free. Open Settings, pick an AI and tap Tutorial for the steps. Paid AIs (ChatGPT, Claude, DeepSeek) need a prepaid balance.</string>
     <string name="ai_panel_title">AIs in this chat</string>
     <string name="no_key">No key</string>
     <string name="used_tokens">≈ %1$d tokens used</string>
@@ -29,4 +29,24 @@
     <string name="about_text">Horus AI puts several AIs in one chat. Start a message with a name, for example Claude, to ask only that AI. Keys and chats stay on this device; messages go only to the AIs you turned on. The app language follows your phone language.</string>
     <string name="err_no_keys">Add at least one API key in Settings first.</string>
     <string name="err_ai_off">%s is turned off or has no key.</string>
+    <string name="free">free</string>
+    <string name="paid">paid</string>
+    <string name="locked">Paid model: not available (no balance)</string>
+    <string name="paid_off">%s is a paid model and is turned off (no balance or key problem). Add credits and enter the key again.</string>
+    <string name="tutorial_btn">Tutorial</string>
+    <string name="paste">Paste</string>
+    <string name="limit_label">Token limit (optional, for % left)</string>
+    <string name="left_pct">≈ %1$d%% left</string>
+    <string name="reset_counter">Reset counter</string>
+    <string name="unlock_btn">I topped up my balance</string>
+    <string name="tier_fast">fast, cheap</string>
+    <string name="tier_mid">balanced</string>
+    <string name="tier_strong">powerful, uses more tokens</string>
+    <string name="local_soon">Local model, coming soon</string>
+    <string name="paid_note">Free AIs (Gemini, Groq) work without paying. Paid ones (ChatGPT, Claude, DeepSeek) need credits on the API account; a chat subscription does not count.</string>
+    <string name="tut_gemini">1. Tap Get key (aistudio.google.com/apikey).\n2. Sign in with a Google account.\n3. Tap Create API key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
+    <string name="tut_groq">1. Tap Get key (console.groq.com/keys).\n2. Sign up or sign in.\n3. Tap Create API Key and give it any name.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nThere is a free tier.</string>
+    <string name="tut_openai">1. Open platform.openai.com and sign in.\n2. In Billing add a payment method and top up the balance (usually from 5 USD).\n3. Open API keys and tap Create new secret key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nA ChatGPT subscription does not work as an API balance.</string>
+    <string name="tut_claude">1. Open console.anthropic.com and sign in.\n2. In Plans and Billing buy credits (usually from 5 USD).\n3. Open Settings, API keys and tap Create Key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nA Claude subscription does not work as an API balance.</string>
+    <string name="tut_deepseek">1. Open platform.deepseek.com and sign up.\n2. Top up the balance (a small amount is enough).\n3. Open API keys and tap Create new API key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.</string>
 </resources>

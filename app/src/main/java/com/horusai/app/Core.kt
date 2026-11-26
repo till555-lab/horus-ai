@@ -84,8 +84,19 @@ object Core {
             return rep
         }
         val e = r.exceptionOrNull()
-        if (e is Api.ApiError && (e.code == 429 || e.code == 402)) st.blocked[p.id] = true
+        if (e is Api.ApiError) {
+            val m = (e.message ?: "").lowercase()
+            val money = e.code == 402 || ((e.code == 429 || e.code == 400 || e.code == 403) &&
+                ("credit" in m || "balance" in m || "billing" in m || "quota" in m))
+            if (money && !p.free) st.setLocked(p, true)
+            else if (e.code == 429) st.blocked[p.id] = true
+        }
         return null
+    }
+
+    private fun report(st: AppState, chat: Chat, p: Prov, r: Result<Api.Reply>) {
+        if (st.locked[p.id] == true) return
+        chat.msgs.add(Msg("sys", errText(p, r)))
     }
 
     private fun errText(p: Prov, r: Result<Api.Reply>): String =
@@ -94,8 +105,11 @@ object Core {
     suspend fun handle(ctx: Context, st: AppState, chat: Chat, raw: String) {
         if (st.busy) return
         st.busy = true
+        var startSize = 0
+        val lockedBefore = Prov.values().filter { st.locked[it.id] == true }
         try {
             chat.msgs.add(Msg("user", raw))
+            startSize = chat.msgs.size
             if (chat.title.isBlank()) chat.title = raw.take(28)
             val active = Prov.values().filter { st.active(it) }
             if (active.isEmpty()) {
@@ -116,7 +130,7 @@ object Core {
                 for ((p, r) in res) {
                     val rep = account(st, p, r)
                     if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title))
-                    else chat.msgs.add(Msg("sys", errText(p, r)))
+                    else report(st, chat, p, r)
                 }
             } else if (active.size >= 2 && st.discuss) {
                 val drafts = coroutineScope {
@@ -125,7 +139,7 @@ object Core {
                 val good = ArrayList<Pair<Prov, String>>()
                 for ((p, r) in drafts) {
                     val rep = account(st, p, r)
-                    if (rep != null) good.add(p to rep.text) else chat.msgs.add(Msg("sys", errText(p, r)))
+                    if (rep != null) good.add(p to rep.text) else report(st, chat, p, r)
                 }
                 if (good.isEmpty()) return
                 if (good.size == 1) {
@@ -142,7 +156,7 @@ object Core {
                 if (rep2 != null) {
                     chat.msgs.add(Msg("ai", rep2.text.ifBlank { "…" }, synth.title, names))
                 } else {
-                    chat.msgs.add(Msg("sys", errText(synth, r2)))
+                    report(st, chat, synth, r2)
                     chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, synth.title, synth.title))
                 }
             } else {
@@ -150,9 +164,13 @@ object Core {
                 val r = ask(st, p, system(active, p, ""), hist)
                 val rep = account(st, p, r)
                 if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title))
-                else chat.msgs.add(Msg("sys", errText(p, r)))
+                else report(st, chat, p, r)
             }
         } finally {
+            val newly = Prov.values().filter { st.locked[it.id] == true && it !in lockedBefore }
+            if (newly.isNotEmpty() && chat.msgs.drop(startSize).none { it.role == "ai" }) {
+                chat.msgs.add(Msg("sys", ctx.getString(R.string.paid_off, newly.joinToString(", ") { it.title })))
+            }
             st.busy = false
             st.save()
         }
