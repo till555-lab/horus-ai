@@ -13,10 +13,11 @@
     <string name="no_keys_text">Horus connects several AIs in one chat, but it needs your own API keys to talk to them. Without keys it cannot answer.</string>
     <string name="how_to_get">How to get keys</string>
     <string name="close">Close</string>
-    <string name="tutorial_text">The easiest start is Gemini or Groq: they are free. Open Settings, pick an AI and tap Tutorial for the steps. Paid AIs (ChatGPT, Claude, DeepSeek) need a prepaid balance.</string>
+    <string name="tutorial_text">The easiest start is Gemini or Groq: they are free. Open Settings, pick an AI and tap Tutorial for the steps. Paid AIs (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) need a prepaid balance.</string>
     <string name="ai_panel_title">AIs in this chat</string>
     <string name="no_key">No key</string>
     <string name="used_tokens">≈ %1$d tokens used</string>
+    <string name="used_tokens_k">≈ %1$s tokens used</string>
     <string name="blocked">Limit reached or error</string>
     <string name="tap_model">Tap the model name to switch it</string>
     <string name="discuss_mode">Discussion mode</string>
@@ -43,7 +44,7 @@
     <string name="tier_mid">balanced</string>
     <string name="tier_strong">powerful, uses more tokens</string>
     <string name="local_soon">Local model, coming soon</string>
-    <string name="paid_note">Free AIs (Gemini, Groq) work without paying. Paid ones (ChatGPT, Claude, DeepSeek) need credits on the API account; a chat subscription does not count.</string>
+    <string name="paid_note">Free AIs (Gemini, Groq, OpenRouter) work without paying. Paid ones (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) need credits on the API account; a chat subscription does not count.</string>
     <string name="tut_gemini">1. Tap Get key (aistudio.google.com/apikey).\n2. Sign in with a Google account.\n3. Tap Create API key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
     <string name="tut_groq">1. Tap Get key (console.groq.com/keys).\n2. Sign up or sign in.\n3. Tap Create API Key and give it any name.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nThere is a free tier.</string>
     <string name="tut_openai">1. Open platform.openai.com and sign in.\n2. In Billing add a payment method and top up the balance (usually from 5 USD).\n3. Open API keys and tap Create new secret key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nA ChatGPT subscription does not work as an API balance.</string>
@@ -56,7 +57,7 @@
     <string name="pick_model">Pick a model</string>
     <string name="no_models">No models found</string>
     <string name="need_key_first">Enter the key first</string>
-    <string name="tut_cerebras">1. Tap Get key (cloud.cerebras.ai).\n2. Sign up or sign in.\n3. Open API Keys and create a key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
+    <string name="tut_cerebras">1. Tap Get key (cloud.cerebras.ai).\n2. Sign up or sign in.\n3. Open API Keys and create a key.\n4. Copy the key and tap Paste in Horus.\nRequires a paid plan.</string>
     <string name="tut_openrouter">1. Tap Get key (openrouter.ai/keys).\n2. Sign up or sign in.\n3. Tap Create Key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nFree models have daily limits. Use Refresh model list to pick one.</string>
-    <string name="tut_mistral">1. Tap Get key (console.mistral.ai/api-keys).\n2. Sign up (a phone number may be required).\n3. Choose the free plan and create an API key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
+    <string name="tut_mistral">1. Tap Get key (console.mistral.ai/api-keys).\n2. Sign up or sign in.\n3. Add a payment method and top up the balance.\n4. Create an API key.\n5. Copy the key and tap Paste in Horus.\nRequires a paid plan.</string>
 </resources>

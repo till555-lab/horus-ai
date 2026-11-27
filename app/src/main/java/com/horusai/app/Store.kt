@@ -23,12 +23,12 @@ enum class Prov(
 ) {
     GEMINI("gemini", "Gemini", true, "gemini-3.5-flash-lite", listOf("gemini-3.5-flash-lite", "gemini-3.8-flash"), listOf(0, 1), "https://aistudio.google.com/apikey"),
     GROQ("groq", "Groq", true, "openai/gpt-oss-120b", listOf("openai/gpt-oss-20b", "openai/gpt-oss-120b", "qwen/qwen3.8-27b"), listOf(0, 1, 1), "https://console.groq.com/keys"),
-    CEREBRAS("cerebras", "Cerebras", true, "gpt-oss-120b", listOf("gpt-oss-120b", "qwen-3.8-27b"), listOf(1, 1), "https://cloud.cerebras.ai"),
     OPENROUTER("openrouter", "OpenRouter", true, "openrouter/free", listOf("openrouter/free"), listOf(1), "https://openrouter.ai/keys"),
-    MISTRAL("mistral", "Mistral", true, "mistral-small-latest", listOf("mistral-small-latest", "mistral-large-latest"), listOf(0, 2), "https://console.mistral.ai/api-keys"),
     OPENAI("openai", "ChatGPT", false, "gpt-5.4-mini", listOf("gpt-5.4-nano", "gpt-5.4-mini", "gpt-5.4"), listOf(0, 1, 2), "https://platform.openai.com/api-keys"),
     CLAUDE("claude", "Claude", false, "claude-haiku-5-5", listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"), listOf(0, 1, 2), "https://console.anthropic.com/settings/keys"),
-    DEEPSEEK("deepseek", "DeepSeek", false, "deepseek-chat", listOf("deepseek-chat", "deepseek-reasoner"), listOf(0, 2), "https://platform.deepseek.com/api_keys");
+    DEEPSEEK("deepseek", "DeepSeek", false, "deepseek-chat", listOf("deepseek-chat", "deepseek-reasoner"), listOf(0, 2), "https://platform.deepseek.com/api_keys"),
+    CEREBRAS("cerebras", "Cerebras", false, "gpt-oss-120b", listOf("gpt-oss-120b", "qwen-3.8-27b"), listOf(1, 1), "https://cloud.cerebras.ai"),
+    MISTRAL("mistral", "Mistral", false, "mistral-small-latest", listOf("mistral-small-latest", "mistral-large-latest"), listOf(0, 2), "https://console.mistral.ai/api-keys");
 
     val aliases: List<String>
         get() = when (this) {
@@ -43,7 +43,14 @@ enum class Prov(
         }
 }
 
-class Msg(val role: String, val text: String, val from: String = "", val note: String = "")
+class Msg(
+    val role: String,
+    val text: String,
+    val from: String = "",
+    val note: String = "",
+    val sentAt: Long = 0L,       // epoch ms when user sent / AI replied
+    val thinkMs: Long = 0L       // ms the AI took to generate (0 for user messages)
+)
 
 class Chat(val id: Long, title: String) {
     var title by mutableStateOf(title)
@@ -125,7 +132,14 @@ class AppState(ctx: Context) {
                 val ms = c.getJSONArray("m")
                 for (k in 0 until ms.length()) {
                     val m = ms.getJSONObject(k)
-                    ch.msgs.add(Msg(m.getString("r"), m.getString("t"), m.optString("f"), m.optString("n")))
+                    ch.msgs.add(Msg(
+                        m.getString("r"),
+                        m.getString("t"),
+                        m.optString("f"),
+                        m.optString("n"),
+                        m.optLong("sa", 0L),
+                        m.optLong("th", 0L)
+                    ))
                 }
                 chats.add(ch)
             }
@@ -149,7 +163,13 @@ class AppState(ctx: Context) {
             for (c in chats) {
                 val ms = JSONArray()
                 for (m in c.msgs) {
-                    ms.put(JSONObject().put("r", m.role).put("t", m.text).put("f", m.from).put("n", m.note))
+                    ms.put(JSONObject()
+                        .put("r", m.role)
+                        .put("t", m.text)
+                        .put("f", m.from)
+                        .put("n", m.note)
+                        .put("sa", m.sentAt)
+                        .put("th", m.thinkMs))
                 }
                 arr.put(JSONObject().put("id", c.id).put("title", c.title).put("m", ms))
             }

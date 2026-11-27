@@ -13,10 +13,11 @@
     <string name="no_keys_text">Horus поєднує кілька ШІ в одному чаті, але потребує ваших власних API-ключів. Без ключів він не може відповідати.</string>
     <string name="how_to_get">Як отримати ключі</string>
     <string name="close">Закрити</string>
-    <string name="tutorial_text">Найпростіше почати з Gemini або Groq: вони безкоштовні. Відкрийте налаштування, оберіть ШІ й натисніть «Туторіал». Платним ШІ (ChatGPT, Claude, DeepSeek) потрібен передоплачений баланс.</string>
+    <string name="tutorial_text">Найпростіше почати з Gemini або Groq: вони безкоштовні. Відкрийте налаштування, оберіть ШІ й натисніть «Туторіал». Платним ШІ (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) потрібен передоплачений баланс.</string>
     <string name="ai_panel_title">ШІ в цьому чаті</string>
     <string name="no_key">Немає ключа</string>
     <string name="used_tokens">≈ %1$d токенів витрачено</string>
+    <string name="used_tokens_k">≈ %1$s токенів витрачено</string>
     <string name="blocked">Ліміт вичерпано або помилка</string>
     <string name="tap_model">Натисніть на назву моделі, щоб перемкнути</string>
     <string name="discuss_mode">Режим обговорення</string>
@@ -43,7 +44,7 @@
     <string name="tier_mid">збалансована</string>
     <string name="tier_strong">потужна, витрачає більше токенів</string>
     <string name="local_soon">Локальна модель, скоро</string>
-    <string name="paid_note">Безкоштовні ШІ (Gemini, Groq) працюють без оплати. Платним (ChatGPT, Claude, DeepSeek) потрібен баланс на API-акаунті; підписка на чат не враховується.</string>
+    <string name="paid_note">Безкоштовні ШІ (Gemini, Groq, OpenRouter) працюють без оплати. Платним (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) потрібен баланс на API-акаунті; підписка на чат не враховується.</string>
     <string name="tut_gemini">1. Натисніть «Отримати ключ» (aistudio.google.com/apikey).\n2. Увійдіть в акаунт Google.\n3. Натисніть Create API key.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
     <string name="tut_groq">1. Натисніть «Отримати ключ» (console.groq.com/keys).\n2. Зареєструйтесь або увійдіть.\n3. Натисніть Create API Key і введіть будь-яку назву.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
     <string name="tut_openai">1. Відкрийте platform.openai.com і увійдіть.\n2. У розділі Billing додайте спосіб оплати й поповніть баланс (зазвичай від 5 доларів).\n3. Відкрийте API keys і натисніть Create new secret key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nПідписка ChatGPT не замінює баланс API.</string>
@@ -56,7 +57,7 @@
     <string name="pick_model">Оберіть модель</string>
     <string name="no_models">Моделей не знайдено</string>
     <string name="need_key_first">Спочатку введіть ключ</string>
-    <string name="tut_cerebras">1. Натисніть «Отримати ключ» (cloud.cerebras.ai).\n2. Зареєструйтесь або увійдіть.\n3. Відкрийте API Keys і створіть ключ.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
+    <string name="tut_cerebras">1. Натисніть «Отримати ключ» (cloud.cerebras.ai).\n2. Зареєструйтесь або увійдіть.\n3. Відкрийте API Keys і створіть ключ.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nПотрібен платний план.</string>
     <string name="tut_openrouter">1. Натисніть «Отримати ключ» (openrouter.ai/keys).\n2. Зареєструйтесь або увійдіть.\n3. Натисніть Create Key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nУ безкоштовних моделей є денні ліміти. Обрати модель можна кнопкою «Оновити список моделей».</string>
-    <string name="tut_mistral">1. Натисніть «Отримати ключ» (console.mistral.ai/api-keys).\n2. Зареєструйтесь (може знадобитися номер телефону).\n3. Оберіть безкоштовний план і створіть API-ключ.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
+    <string name="tut_mistral">1. Натисніть «Отримати ключ» (console.mistral.ai/api-keys).\n2. Зареєструйтесь або увійдіть.\n3. Додайте спосіб оплати й поповніть баланс.\n4. Створіть API-ключ.\n5. Скопіюйте ключ і натисніть «Вставити» в Horus.\nПотрібен платний план.</string>
 </resources>

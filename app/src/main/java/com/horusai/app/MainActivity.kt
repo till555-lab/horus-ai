@@ -88,12 +88,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 private val Gold = Color(0xFFF5B942)
 private val Navy = Color(0xFF101426)
 private val Panel = Color(0xFF171C33)
 private val Panel2 = Color(0xFF222844)
 private val Ink = Color(0xFFEDEFF7)
+
+private val timeFmt = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+
+private fun fmtTime(epochMs: Long): String =
+    if (epochMs > 0L) timeFmt.format(Date(epochMs)) else ""
+
+private fun fmtThink(ms: Long): String = when {
+    ms <= 0L -> ""
+    ms < 1000L -> "${ms}ms"
+    else -> "${"%.1f".format(ms / 1000.0)}s"
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -313,8 +327,20 @@ fun Bubble(m: Msg) {
         Box(Modifier.widthIn(max = 320.dp).background(bg, RoundedCornerShape(14.dp)).padding(10.dp)) {
             SelectionContainer { Text(m.text, color = if (sys) MaterialTheme.colorScheme.onErrorContainer else Ink) }
         }
-        if (m.note.isNotBlank()) {
-            Text(stringResource(R.string.answered_by, m.note), fontSize = 11.sp, color = Ink.copy(alpha = 0.6f))
+        // Timestamps row
+        val timeStr = fmtTime(m.sentAt)
+        val thinkStr = fmtThink(m.thinkMs)
+        val metaParts = buildList {
+            if (m.note.isNotBlank()) add(stringResource(R.string.answered_by, m.note))
+            if (timeStr.isNotBlank()) add(timeStr)
+            if (thinkStr.isNotBlank()) add("⏱ $thinkStr")
+        }
+        if (metaParts.isNotEmpty()) {
+            Text(
+                metaParts.joinToString(" · "),
+                fontSize = 11.sp,
+                color = Ink.copy(alpha = 0.5f)
+            )
         }
     }
 }
@@ -408,14 +434,19 @@ fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
                                         }
                                     }
                                 }
+                                // Token display: "44k / 100k — 44%" or just "44k tokens"
                                 val lim = st.limits[p.id] ?: 0
                                 val usedT = st.used[p.id] ?: 0
-                                if (lim > 0) {
-                                    val left = maxOf(0, 100 - (usedT * 100L / lim).toInt())
-                                    Text(stringResource(R.string.left_pct, left), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                val tokenText = if (lim > 0) {
+                                    val pct = (usedT * 100L / lim).toInt().coerceIn(0, 100)
+                                    val usedK = if (usedT >= 1000) "${usedT / 1000}k" else "$usedT"
+                                    val limK = if (lim >= 1000) "${lim / 1000}k" else "$lim"
+                                    "$usedK / $limK — $pct%"
                                 } else {
-                                    Text(stringResource(R.string.used_tokens, usedT), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                    val usedK = if (usedT >= 1000) "${usedT / 1000}k" else "$usedT"
+                                    stringResource(R.string.used_tokens_k, usedK)
                                 }
+                                Text(tokenText, fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
                                 if (locked) {
                                     Text("⚠ " + stringResource(R.string.locked), fontSize = 12.sp, color = Red)
                                 } else if (st.blocked[p.id] == true) {

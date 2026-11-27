@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path android:pathData="M48,24 Q48,46 70,46 Q48,46 48,68 Q48,46 26,46 Q48,46 48,24 Z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:startX="26"
-                android:startY="24"
-                android:endX="70"
-                android:endY="68"
-                android:type="linear">
-                <item android:color="#4E82EE" android:offset="0" />
-                <item android:color="#9168C0" android:offset="0.5" />
-                <item android:color="#D96570" android:offset="1" />
-            </gradient>
-        </aapt:attr>
-    </path>
-    <path android:pathData="M74,63 Q74,74 85,74 Q74,74 74,85 Q74,74 63,74 Q74,74 74,63 Z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:startX="63"
-                android:startY="63"
-                android:endX="85"
-                android:endY="85"
-                android:type="linear">
-                <item android:color="#FFD36B" android:offset="0" />
-                <item android:color="#FF9F5A" android:offset="1" />
-            </gradient>
-        </aapt:attr>
-    </path>
+
+    <!-- Central large yellow star -->
+    <path
+        android:pathData="M54,32 Q54,52 74,54 Q54,56 54,74 Q54,56 34,54 Q54,52 54,32 Z"
+        android:fillColor="#F5B942"/>
+
+    <!-- Top-left small red star -->
+    <path
+        android:pathData="M28,22 Q28,30 36,31 Q28,32 28,40 Q28,32 20,31 Q28,30 28,22 Z"
+        android:fillColor="#E05252"/>
+
+    <!-- Top-right small blue star -->
+    <path
+        android:pathData="M80,22 Q80,30 88,31 Q80,32 80,40 Q80,32 72,31 Q80,30 80,22 Z"
+        android:fillColor="#5285E0"/>
+
+    <!-- Bottom-left small green star -->
+    <path
+        android:pathData="M28,68 Q28,76 36,77 Q28,78 28,86 Q28,78 20,77 Q28,76 28,68 Z"
+        android:fillColor="#52C07A"/>
+
+    <!-- Bottom-right small purple star -->
+    <path
+        android:pathData="M80,68 Q80,76 88,77 Q80,78 80,86 Q80,78 72,77 Q80,76 80,68 Z"
+        android:fillColor="#A052E0"/>
+
 </vector>

@@ -109,7 +109,8 @@ object Core {
         var startSize = 0
         val lockedBefore = Prov.values().filter { st.locked[it.id] == true }
         try {
-            chat.msgs.add(Msg("user", raw))
+            val userSentAt = System.currentTimeMillis()
+            chat.msgs.add(Msg("user", raw, sentAt = userSentAt))
             startSize = chat.msgs.size
             if (chat.title.isBlank()) chat.title = raw.take(28)
             val active = Prov.values().filter { st.active(it) }
@@ -126,45 +127,61 @@ object Core {
                 }
                 val ok = named.filter { st.active(it) }
                 val res = coroutineScope {
-                    ok.map { p -> async { p to ask(st, p, system(active, p, ""), hist) } }.awaitAll()
+                    ok.map { p ->
+                        async {
+                            val t0 = System.currentTimeMillis()
+                            val r = ask(st, p, system(active, p, ""), hist)
+                            Triple(p, r, System.currentTimeMillis() - t0)
+                        }
+                    }.awaitAll()
                 }
-                for ((p, r) in res) {
+                for ((p, r, ms) in res) {
                     val rep = account(st, p, r)
-                    if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title))
+                    if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title, sentAt = System.currentTimeMillis(), thinkMs = ms))
                     else report(st, chat, p, r)
                 }
             } else if (active.size >= 2 && st.discuss) {
                 val drafts = coroutineScope {
-                    active.map { p -> async { p to ask(st, p, system(active, p, DRAFT), hist) } }.awaitAll()
+                    active.map { p ->
+                        async {
+                            val t0 = System.currentTimeMillis()
+                            val r = ask(st, p, system(active, p, DRAFT), hist)
+                            Triple(p, r, System.currentTimeMillis() - t0)
+                        }
+                    }.awaitAll()
                 }
-                val good = ArrayList<Pair<Prov, String>>()
-                for ((p, r) in drafts) {
+                val good = ArrayList<Triple<Prov, String, Long>>()
+                for ((p, r, ms) in drafts) {
                     val rep = account(st, p, r)
-                    if (rep != null) good.add(p to rep.text) else report(st, chat, p, r)
+                    if (rep != null) good.add(Triple(p, rep.text, ms)) else report(st, chat, p, r)
                 }
                 if (good.isEmpty()) return
                 if (good.size == 1) {
-                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, good[0].first.title, good[0].first.title))
+                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, good[0].first.title, good[0].first.title, System.currentTimeMillis(), good[0].third))
                     return
                 }
                 val synth = good[0].first
                 val packed = good.joinToString("\n\n") { "[${it.first.title}]:\n${it.second}" }
                 val last = hist.last()
                 val h2 = hist.dropLast(1) + (last.first to (last.second + "\n\n---\nDrafts from the AIs:\n" + packed))
+                val t0 = System.currentTimeMillis()
                 val r2 = ask(st, synth, system(active, synth, FINAL), h2)
+                val thinkMs2 = System.currentTimeMillis() - t0
                 val rep2 = account(st, synth, r2)
                 val names = good.joinToString(", ") { it.first.title }
                 if (rep2 != null) {
-                    chat.msgs.add(Msg("ai", rep2.text.ifBlank { "…" }, synth.title, names))
+                    chat.msgs.add(Msg("ai", rep2.text.ifBlank { "…" }, synth.title, names, System.currentTimeMillis(), thinkMs2))
                 } else {
                     report(st, chat, synth, r2)
-                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, synth.title, synth.title))
+                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, synth.title, synth.title, System.currentTimeMillis(), good[0].third))
                 }
             } else {
                 val p = active.first()
+                val t0 = System.currentTimeMillis()
                 val r = ask(st, p, system(active, p, ""), hist)
+                val thinkMs = System.currentTimeMillis() - t0
                 val rep = account(st, p, r)
-                if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title))
+                if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title, sentAt = System.currentTimeMillis(), thinkMs = thinkMs))
                 else report(st, chat, p, r)
             }
         } finally {
