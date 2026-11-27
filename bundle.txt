@@ -55,7 +55,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = (System.getenv("GITHUB_RUN_NUMBER") ?: "1").toInt()
-        versionName = "0.1.3-alpha"
+        versionName = "0.1.4-alpha"
     }
     signingConfigs {
         getByName("debug") {
@@ -134,38 +134,36 @@ dependencies {
 =====FILE: app/src/main/res/drawable/ic_launcher_foreground.xml=====
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path android:pathData="M48,24 Q48,46 70,46 Q48,46 48,68 Q48,46 26,46 Q48,46 48,24 Z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:startX="26"
-                android:startY="24"
-                android:endX="70"
-                android:endY="68"
-                android:type="linear">
-                <item android:color="#4E82EE" android:offset="0" />
-                <item android:color="#9168C0" android:offset="0.5" />
-                <item android:color="#D96570" android:offset="1" />
-            </gradient>
-        </aapt:attr>
-    </path>
-    <path android:pathData="M74,63 Q74,74 85,74 Q74,74 74,85 Q74,74 63,74 Q74,74 74,63 Z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:startX="63"
-                android:startY="63"
-                android:endX="85"
-                android:endY="85"
-                android:type="linear">
-                <item android:color="#FFD36B" android:offset="0" />
-                <item android:color="#FF9F5A" android:offset="1" />
-            </gradient>
-        </aapt:attr>
-    </path>
+
+    <!-- Central large yellow star -->
+    <path
+        android:pathData="M54,32 Q54,52 74,54 Q54,56 54,74 Q54,56 34,54 Q54,52 54,32 Z"
+        android:fillColor="#F5B942"/>
+
+    <!-- Top-left small red star -->
+    <path
+        android:pathData="M28,22 Q28,30 36,31 Q28,32 28,40 Q28,32 20,31 Q28,30 28,22 Z"
+        android:fillColor="#E05252"/>
+
+    <!-- Top-right small blue star -->
+    <path
+        android:pathData="M80,22 Q80,30 88,31 Q80,32 80,40 Q80,32 72,31 Q80,30 80,22 Z"
+        android:fillColor="#5285E0"/>
+
+    <!-- Bottom-left small green star -->
+    <path
+        android:pathData="M28,68 Q28,76 36,77 Q28,78 28,86 Q28,78 20,77 Q28,76 28,68 Z"
+        android:fillColor="#52C07A"/>
+
+    <!-- Bottom-right small purple star -->
+    <path
+        android:pathData="M80,68 Q80,76 88,77 Q80,78 80,86 Q80,78 72,77 Q80,76 80,68 Z"
+        android:fillColor="#A052E0"/>
+
 </vector>
 =====FILE: app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml=====
 <?xml version="1.0" encoding="utf-8"?>
@@ -195,10 +193,11 @@ dependencies {
     <string name="no_keys_text">Horus connects several AIs in one chat, but it needs your own API keys to talk to them. Without keys it cannot answer.</string>
     <string name="how_to_get">How to get keys</string>
     <string name="close">Close</string>
-    <string name="tutorial_text">The easiest start is Gemini or Groq: they are free. Open Settings, pick an AI and tap Tutorial for the steps. Paid AIs (ChatGPT, Claude, DeepSeek) need a prepaid balance.</string>
+    <string name="tutorial_text">The easiest start is Gemini or Groq: they are free. Open Settings, pick an AI and tap Tutorial for the steps. Paid AIs (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) need a prepaid balance.</string>
     <string name="ai_panel_title">AIs in this chat</string>
     <string name="no_key">No key</string>
     <string name="used_tokens">≈ %1$d tokens used</string>
+    <string name="used_tokens_k">≈ %1$s tokens used</string>
     <string name="blocked">Limit reached or error</string>
     <string name="tap_model">Tap the model name to switch it</string>
     <string name="discuss_mode">Discussion mode</string>
@@ -225,7 +224,7 @@ dependencies {
     <string name="tier_mid">balanced</string>
     <string name="tier_strong">powerful, uses more tokens</string>
     <string name="local_soon">Local model, coming soon</string>
-    <string name="paid_note">Free AIs (Gemini, Groq) work without paying. Paid ones (ChatGPT, Claude, DeepSeek) need credits on the API account; a chat subscription does not count.</string>
+    <string name="paid_note">Free AIs (Gemini, Groq, OpenRouter) work without paying. Paid ones (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) need credits on the API account; a chat subscription does not count.</string>
     <string name="tut_gemini">1. Tap Get key (aistudio.google.com/apikey).\n2. Sign in with a Google account.\n3. Tap Create API key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
     <string name="tut_groq">1. Tap Get key (console.groq.com/keys).\n2. Sign up or sign in.\n3. Tap Create API Key and give it any name.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nThere is a free tier.</string>
     <string name="tut_openai">1. Open platform.openai.com and sign in.\n2. In Billing add a payment method and top up the balance (usually from 5 USD).\n3. Open API keys and tap Create new secret key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nA ChatGPT subscription does not work as an API balance.</string>
@@ -238,9 +237,9 @@ dependencies {
     <string name="pick_model">Pick a model</string>
     <string name="no_models">No models found</string>
     <string name="need_key_first">Enter the key first</string>
-    <string name="tut_cerebras">1. Tap Get key (cloud.cerebras.ai).\n2. Sign up or sign in.\n3. Open API Keys and create a key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
+    <string name="tut_cerebras">1. Tap Get key (cloud.cerebras.ai).\n2. Sign up or sign in.\n3. Open API Keys and create a key.\n4. Copy the key and tap Paste in Horus.\nRequires a paid plan.</string>
     <string name="tut_openrouter">1. Tap Get key (openrouter.ai/keys).\n2. Sign up or sign in.\n3. Tap Create Key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nFree models have daily limits. Use Refresh model list to pick one.</string>
-    <string name="tut_mistral">1. Tap Get key (console.mistral.ai/api-keys).\n2. Sign up (a phone number may be required).\n3. Choose the free plan and create an API key.\n4. Copy the key and tap Paste in Horus.\nThere is a free tier.</string>
+    <string name="tut_mistral">1. Tap Get key (console.mistral.ai/api-keys).\n2. Sign up or sign in.\n3. Add a payment method and top up the balance.\n4. Create an API key.\n5. Copy the key and tap Paste in Horus.\nRequires a paid plan.</string>
 </resources>
 =====FILE: app/src/main/res/values-ru/strings.xml=====
 <?xml version="1.0" encoding="utf-8"?>
@@ -258,10 +257,11 @@ dependencies {
     <string name="no_keys_text">Horus объединяет несколько ИИ в одном чате, но ему нужны ваши собственные API-ключи. Без ключей он не может отвечать.</string>
     <string name="how_to_get">Как получить ключи</string>
     <string name="close">Закрыть</string>
-    <string name="tutorial_text">Проще всего начать с Gemini или Groq: они бесплатные. Откройте настройки, выберите ИИ и нажмите «Туториал». Платным ИИ (ChatGPT, Claude, DeepSeek) нужен предоплаченный баланс.</string>
+    <string name="tutorial_text">Проще всего начать с Gemini или Groq: они бесплатные. Откройте настройки, выберите ИИ и нажмите «Туториал». Платным ИИ (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) нужен предоплаченный баланс.</string>
     <string name="ai_panel_title">ИИ в этом чате</string>
     <string name="no_key">Нет ключа</string>
     <string name="used_tokens">≈ %1$d токенов потрачено</string>
+    <string name="used_tokens_k">≈ %1$s токенов потрачено</string>
     <string name="blocked">Лимит исчерпан или ошибка</string>
     <string name="tap_model">Нажмите на название модели, чтобы переключить</string>
     <string name="discuss_mode">Режим обсуждения</string>
@@ -288,7 +288,7 @@ dependencies {
     <string name="tier_mid">сбалансированная</string>
     <string name="tier_strong">мощная, тратит больше токенов</string>
     <string name="local_soon">Локальная модель, скоро</string>
-    <string name="paid_note">Бесплатные ИИ (Gemini, Groq) работают без оплаты. Платным (ChatGPT, Claude, DeepSeek) нужен баланс на API-аккаунте; подписка на чат не считается.</string>
+    <string name="paid_note">Бесплатные ИИ (Gemini, Groq, OpenRouter) работают без оплаты. Платным (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) нужен баланс на API-аккаунте; подписка на чат не считается.</string>
     <string name="tut_gemini">1. Нажмите «Получить ключ» (aistudio.google.com/apikey).\n2. Войдите в аккаунт Google.\n3. Нажмите Create API key.\n4. Скопируйте ключ и нажмите «Вставить» в Horus.\nЕсть бесплатный лимит.</string>
     <string name="tut_groq">1. Нажмите «Получить ключ» (console.groq.com/keys).\n2. Зарегистрируйтесь или войдите.\n3. Нажмите Create API Key и введите любое имя.\n4. Сразу скопируйте ключ: он показывается один раз.\n5. Нажмите «Вставить» в Horus.\nЕсть бесплатный лимит.</string>
     <string name="tut_openai">1. Откройте platform.openai.com и войдите.\n2. В разделе Billing добавьте способ оплаты и пополните баланс (обычно от 5 долларов).\n3. Откройте API keys и нажмите Create new secret key.\n4. Сразу скопируйте ключ: он показывается один раз.\n5. Нажмите «Вставить» в Horus.\nПодписка ChatGPT не заменяет баланс API.</string>
@@ -301,9 +301,9 @@ dependencies {
     <string name="pick_model">Выберите модель</string>
     <string name="no_models">Модели не найдены</string>
     <string name="need_key_first">Сначала введите ключ</string>
-    <string name="tut_cerebras">1. Нажмите «Получить ключ» (cloud.cerebras.ai).\n2. Зарегистрируйтесь или войдите.\n3. Откройте API Keys и создайте ключ.\n4. Скопируйте ключ и нажмите «Вставить» в Horus.\nЕсть бесплатный лимит.</string>
+    <string name="tut_cerebras">1. Нажмите «Получить ключ» (cloud.cerebras.ai).\n2. Зарегистрируйтесь или войдите.\n3. Откройте API Keys и создайте ключ.\n4. Скопируйте ключ и нажмите «Вставить» в Horus.\nТребуется платный план.</string>
     <string name="tut_openrouter">1. Нажмите «Получить ключ» (openrouter.ai/keys).\n2. Зарегистрируйтесь или войдите.\n3. Нажмите Create Key.\n4. Сразу скопируйте ключ: он показывается один раз.\n5. Нажмите «Вставить» в Horus.\nУ бесплатных моделей есть дневные лимиты. Выбрать модель можно кнопкой «Обновить список моделей».</string>
-    <string name="tut_mistral">1. Нажмите «Получить ключ» (console.mistral.ai/api-keys).\n2. Зарегистрируйтесь (может понадобиться номер телефона).\n3. Выберите бесплатный план и создайте API-ключ.\n4. Скопируйте ключ и нажмите «Вставить» в Horus.\nЕсть бесплатный лимит.</string>
+    <string name="tut_mistral">1. Нажмите «Получить ключ» (console.mistral.ai/api-keys).\n2. Зарегистрируйтесь или войдите.\n3. Добавьте способ оплаты и пополните баланс.\n4. Создайте API-ключ.\n5. Скопируйте ключ и нажмите «Вставить» в Horus.\nТребуется платный план.</string>
 </resources>
 =====FILE: app/src/main/res/values-uk/strings.xml=====
 <?xml version="1.0" encoding="utf-8"?>
@@ -321,10 +321,11 @@ dependencies {
     <string name="no_keys_text">Horus поєднує кілька ШІ в одному чаті, але потребує ваших власних API-ключів. Без ключів він не може відповідати.</string>
     <string name="how_to_get">Як отримати ключі</string>
     <string name="close">Закрити</string>
-    <string name="tutorial_text">Найпростіше почати з Gemini або Groq: вони безкоштовні. Відкрийте налаштування, оберіть ШІ й натисніть «Туторіал». Платним ШІ (ChatGPT, Claude, DeepSeek) потрібен передоплачений баланс.</string>
+    <string name="tutorial_text">Найпростіше почати з Gemini або Groq: вони безкоштовні. Відкрийте налаштування, оберіть ШІ й натисніть «Туторіал». Платним ШІ (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) потрібен передоплачений баланс.</string>
     <string name="ai_panel_title">ШІ в цьому чаті</string>
     <string name="no_key">Немає ключа</string>
     <string name="used_tokens">≈ %1$d токенів витрачено</string>
+    <string name="used_tokens_k">≈ %1$s токенів витрачено</string>
     <string name="blocked">Ліміт вичерпано або помилка</string>
     <string name="tap_model">Натисніть на назву моделі, щоб перемкнути</string>
     <string name="discuss_mode">Режим обговорення</string>
@@ -351,7 +352,7 @@ dependencies {
     <string name="tier_mid">збалансована</string>
     <string name="tier_strong">потужна, витрачає більше токенів</string>
     <string name="local_soon">Локальна модель, скоро</string>
-    <string name="paid_note">Безкоштовні ШІ (Gemini, Groq) працюють без оплати. Платним (ChatGPT, Claude, DeepSeek) потрібен баланс на API-акаунті; підписка на чат не враховується.</string>
+    <string name="paid_note">Безкоштовні ШІ (Gemini, Groq, OpenRouter) працюють без оплати. Платним (ChatGPT, Claude, DeepSeek, Cerebras, Mistral) потрібен баланс на API-акаунті; підписка на чат не враховується.</string>
     <string name="tut_gemini">1. Натисніть «Отримати ключ» (aistudio.google.com/apikey).\n2. Увійдіть в акаунт Google.\n3. Натисніть Create API key.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
     <string name="tut_groq">1. Натисніть «Отримати ключ» (console.groq.com/keys).\n2. Зареєструйтесь або увійдіть.\n3. Натисніть Create API Key і введіть будь-яку назву.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
     <string name="tut_openai">1. Відкрийте platform.openai.com і увійдіть.\n2. У розділі Billing додайте спосіб оплати й поповніть баланс (зазвичай від 5 доларів).\n3. Відкрийте API keys і натисніть Create new secret key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nПідписка ChatGPT не замінює баланс API.</string>
@@ -364,9 +365,9 @@ dependencies {
     <string name="pick_model">Оберіть модель</string>
     <string name="no_models">Моделей не знайдено</string>
     <string name="need_key_first">Спочатку введіть ключ</string>
-    <string name="tut_cerebras">1. Натисніть «Отримати ключ» (cloud.cerebras.ai).\n2. Зареєструйтесь або увійдіть.\n3. Відкрийте API Keys і створіть ключ.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
+    <string name="tut_cerebras">1. Натисніть «Отримати ключ» (cloud.cerebras.ai).\n2. Зареєструйтесь або увійдіть.\n3. Відкрийте API Keys і створіть ключ.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nПотрібен платний план.</string>
     <string name="tut_openrouter">1. Натисніть «Отримати ключ» (openrouter.ai/keys).\n2. Зареєструйтесь або увійдіть.\n3. Натисніть Create Key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nУ безкоштовних моделей є денні ліміти. Обрати модель можна кнопкою «Оновити список моделей».</string>
-    <string name="tut_mistral">1. Натисніть «Отримати ключ» (console.mistral.ai/api-keys).\n2. Зареєструйтесь (може знадобитися номер телефону).\n3. Оберіть безкоштовний план і створіть API-ключ.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nЄ безкоштовний ліміт.</string>
+    <string name="tut_mistral">1. Натисніть «Отримати ключ» (console.mistral.ai/api-keys).\n2. Зареєструйтесь або увійдіть.\n3. Додайте спосіб оплати й поповніть баланс.\n4. Створіть API-ключ.\n5. Скопіюйте ключ і натисніть «Вставити» в Horus.\nПотрібен платний план.</string>
 </resources>
 =====FILE: app/src/main/java/com/horusai/app/Store.kt=====
 package com.horusai.app
@@ -394,12 +395,12 @@ enum class Prov(
 ) {
     GEMINI("gemini", "Gemini", true, "gemini-3.5-flash-lite", listOf("gemini-3.5-flash-lite", "gemini-3.8-flash"), listOf(0, 1), "https://aistudio.google.com/apikey"),
     GROQ("groq", "Groq", true, "openai/gpt-oss-120b", listOf("openai/gpt-oss-20b", "openai/gpt-oss-120b", "qwen/qwen3.8-27b"), listOf(0, 1, 1), "https://console.groq.com/keys"),
-    CEREBRAS("cerebras", "Cerebras", true, "gpt-oss-120b", listOf("gpt-oss-120b", "qwen-3.8-27b"), listOf(1, 1), "https://cloud.cerebras.ai"),
     OPENROUTER("openrouter", "OpenRouter", true, "openrouter/free", listOf("openrouter/free"), listOf(1), "https://openrouter.ai/keys"),
-    MISTRAL("mistral", "Mistral", true, "mistral-small-latest", listOf("mistral-small-latest", "mistral-large-latest"), listOf(0, 2), "https://console.mistral.ai/api-keys"),
     OPENAI("openai", "ChatGPT", false, "gpt-5.4-mini", listOf("gpt-5.4-nano", "gpt-5.4-mini", "gpt-5.4"), listOf(0, 1, 2), "https://platform.openai.com/api-keys"),
     CLAUDE("claude", "Claude", false, "claude-haiku-5-5", listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"), listOf(0, 1, 2), "https://console.anthropic.com/settings/keys"),
-    DEEPSEEK("deepseek", "DeepSeek", false, "deepseek-chat", listOf("deepseek-chat", "deepseek-reasoner"), listOf(0, 2), "https://platform.deepseek.com/api_keys");
+    DEEPSEEK("deepseek", "DeepSeek", false, "deepseek-chat", listOf("deepseek-chat", "deepseek-reasoner"), listOf(0, 2), "https://platform.deepseek.com/api_keys"),
+    CEREBRAS("cerebras", "Cerebras", false, "gpt-oss-120b", listOf("gpt-oss-120b", "qwen-3.8-27b"), listOf(1, 1), "https://cloud.cerebras.ai"),
+    MISTRAL("mistral", "Mistral", false, "mistral-small-latest", listOf("mistral-small-latest", "mistral-large-latest"), listOf(0, 2), "https://console.mistral.ai/api-keys");
 
     val aliases: List<String>
         get() = when (this) {
@@ -414,7 +415,14 @@ enum class Prov(
         }
 }
 
-class Msg(val role: String, val text: String, val from: String = "", val note: String = "")
+class Msg(
+    val role: String,
+    val text: String,
+    val from: String = "",
+    val note: String = "",
+    val sentAt: Long = 0L,       // epoch ms when user sent / AI replied
+    val thinkMs: Long = 0L       // ms the AI took to generate (0 for user messages)
+)
 
 class Chat(val id: Long, title: String) {
     var title by mutableStateOf(title)
@@ -496,7 +504,14 @@ class AppState(ctx: Context) {
                 val ms = c.getJSONArray("m")
                 for (k in 0 until ms.length()) {
                     val m = ms.getJSONObject(k)
-                    ch.msgs.add(Msg(m.getString("r"), m.getString("t"), m.optString("f"), m.optString("n")))
+                    ch.msgs.add(Msg(
+                        m.getString("r"),
+                        m.getString("t"),
+                        m.optString("f"),
+                        m.optString("n"),
+                        m.optLong("sa", 0L),
+                        m.optLong("th", 0L)
+                    ))
                 }
                 chats.add(ch)
             }
@@ -520,7 +535,13 @@ class AppState(ctx: Context) {
             for (c in chats) {
                 val ms = JSONArray()
                 for (m in c.msgs) {
-                    ms.put(JSONObject().put("r", m.role).put("t", m.text).put("f", m.from).put("n", m.note))
+                    ms.put(JSONObject()
+                        .put("r", m.role)
+                        .put("t", m.text)
+                        .put("f", m.from)
+                        .put("n", m.note)
+                        .put("sa", m.sentAt)
+                        .put("th", m.thinkMs))
                 }
                 arr.put(JSONObject().put("id", c.id).put("title", c.title).put("m", ms))
             }
@@ -810,7 +831,8 @@ object Core {
         var startSize = 0
         val lockedBefore = Prov.values().filter { st.locked[it.id] == true }
         try {
-            chat.msgs.add(Msg("user", raw))
+            val userSentAt = System.currentTimeMillis()
+            chat.msgs.add(Msg("user", raw, sentAt = userSentAt))
             startSize = chat.msgs.size
             if (chat.title.isBlank()) chat.title = raw.take(28)
             val active = Prov.values().filter { st.active(it) }
@@ -827,45 +849,61 @@ object Core {
                 }
                 val ok = named.filter { st.active(it) }
                 val res = coroutineScope {
-                    ok.map { p -> async { p to ask(st, p, system(active, p, ""), hist) } }.awaitAll()
+                    ok.map { p ->
+                        async {
+                            val t0 = System.currentTimeMillis()
+                            val r = ask(st, p, system(active, p, ""), hist)
+                            Triple(p, r, System.currentTimeMillis() - t0)
+                        }
+                    }.awaitAll()
                 }
-                for ((p, r) in res) {
+                for ((p, r, ms) in res) {
                     val rep = account(st, p, r)
-                    if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title))
+                    if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title, sentAt = System.currentTimeMillis(), thinkMs = ms))
                     else report(st, chat, p, r)
                 }
             } else if (active.size >= 2 && st.discuss) {
                 val drafts = coroutineScope {
-                    active.map { p -> async { p to ask(st, p, system(active, p, DRAFT), hist) } }.awaitAll()
+                    active.map { p ->
+                        async {
+                            val t0 = System.currentTimeMillis()
+                            val r = ask(st, p, system(active, p, DRAFT), hist)
+                            Triple(p, r, System.currentTimeMillis() - t0)
+                        }
+                    }.awaitAll()
                 }
-                val good = ArrayList<Pair<Prov, String>>()
-                for ((p, r) in drafts) {
+                val good = ArrayList<Triple<Prov, String, Long>>()
+                for ((p, r, ms) in drafts) {
                     val rep = account(st, p, r)
-                    if (rep != null) good.add(p to rep.text) else report(st, chat, p, r)
+                    if (rep != null) good.add(Triple(p, rep.text, ms)) else report(st, chat, p, r)
                 }
                 if (good.isEmpty()) return
                 if (good.size == 1) {
-                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, good[0].first.title, good[0].first.title))
+                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, good[0].first.title, good[0].first.title, System.currentTimeMillis(), good[0].third))
                     return
                 }
                 val synth = good[0].first
                 val packed = good.joinToString("\n\n") { "[${it.first.title}]:\n${it.second}" }
                 val last = hist.last()
                 val h2 = hist.dropLast(1) + (last.first to (last.second + "\n\n---\nDrafts from the AIs:\n" + packed))
+                val t0 = System.currentTimeMillis()
                 val r2 = ask(st, synth, system(active, synth, FINAL), h2)
+                val thinkMs2 = System.currentTimeMillis() - t0
                 val rep2 = account(st, synth, r2)
                 val names = good.joinToString(", ") { it.first.title }
                 if (rep2 != null) {
-                    chat.msgs.add(Msg("ai", rep2.text.ifBlank { "…" }, synth.title, names))
+                    chat.msgs.add(Msg("ai", rep2.text.ifBlank { "…" }, synth.title, names, System.currentTimeMillis(), thinkMs2))
                 } else {
                     report(st, chat, synth, r2)
-                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, synth.title, synth.title))
+                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, synth.title, synth.title, System.currentTimeMillis(), good[0].third))
                 }
             } else {
                 val p = active.first()
+                val t0 = System.currentTimeMillis()
                 val r = ask(st, p, system(active, p, ""), hist)
+                val thinkMs = System.currentTimeMillis() - t0
                 val rep = account(st, p, r)
-                if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title))
+                if (rep != null) chat.msgs.add(Msg("ai", rep.text.ifBlank { "…" }, p.title, sentAt = System.currentTimeMillis(), thinkMs = thinkMs))
                 else report(st, chat, p, r)
             }
         } finally {
@@ -969,12 +1007,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 private val Gold = Color(0xFFF5B942)
 private val Navy = Color(0xFF101426)
 private val Panel = Color(0xFF171C33)
 private val Panel2 = Color(0xFF222844)
 private val Ink = Color(0xFFEDEFF7)
+
+private val timeFmt = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+
+private fun fmtTime(epochMs: Long): String =
+    if (epochMs > 0L) timeFmt.format(Date(epochMs)) else ""
+
+private fun fmtThink(ms: Long): String = when {
+    ms <= 0L -> ""
+    ms < 1000L -> "${ms}ms"
+    else -> "${"%.1f".format(ms / 1000.0)}s"
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -1194,8 +1246,20 @@ fun Bubble(m: Msg) {
         Box(Modifier.widthIn(max = 320.dp).background(bg, RoundedCornerShape(14.dp)).padding(10.dp)) {
             SelectionContainer { Text(m.text, color = if (sys) MaterialTheme.colorScheme.onErrorContainer else Ink) }
         }
-        if (m.note.isNotBlank()) {
-            Text(stringResource(R.string.answered_by, m.note), fontSize = 11.sp, color = Ink.copy(alpha = 0.6f))
+        // Timestamps row
+        val timeStr = fmtTime(m.sentAt)
+        val thinkStr = fmtThink(m.thinkMs)
+        val metaParts = buildList {
+            if (m.note.isNotBlank()) add(stringResource(R.string.answered_by, m.note))
+            if (timeStr.isNotBlank()) add(timeStr)
+            if (thinkStr.isNotBlank()) add("⏱ $thinkStr")
+        }
+        if (metaParts.isNotEmpty()) {
+            Text(
+                metaParts.joinToString(" · "),
+                fontSize = 11.sp,
+                color = Ink.copy(alpha = 0.5f)
+            )
         }
     }
 }
@@ -1289,14 +1353,19 @@ fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
                                         }
                                     }
                                 }
+                                // Token display: "44k / 100k — 44%" or just "44k tokens"
                                 val lim = st.limits[p.id] ?: 0
                                 val usedT = st.used[p.id] ?: 0
-                                if (lim > 0) {
-                                    val left = maxOf(0, 100 - (usedT * 100L / lim).toInt())
-                                    Text(stringResource(R.string.left_pct, left), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                val tokenText = if (lim > 0) {
+                                    val pct = (usedT * 100L / lim).toInt().coerceIn(0, 100)
+                                    val usedK = if (usedT >= 1000) "${usedT / 1000}k" else "$usedT"
+                                    val limK = if (lim >= 1000) "${lim / 1000}k" else "$lim"
+                                    "$usedK / $limK — $pct%"
                                 } else {
-                                    Text(stringResource(R.string.used_tokens, usedT), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                    val usedK = if (usedT >= 1000) "${usedT / 1000}k" else "$usedT"
+                                    stringResource(R.string.used_tokens_k, usedK)
                                 }
+                                Text(tokenText, fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
                                 if (locked) {
                                     Text("⚠ " + stringResource(R.string.locked), fontSize = 12.sp, color = Red)
                                 } else if (st.blocked[p.id] == true) {
