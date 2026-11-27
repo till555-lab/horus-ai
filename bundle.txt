@@ -55,7 +55,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = (System.getenv("GITHUB_RUN_NUMBER") ?: "1").toInt()
-        versionName = "0.1.4-alpha"
+        versionName = "0.1.5-alpha"
     }
     signingConfigs {
         getByName("debug") {
@@ -141,27 +141,27 @@ dependencies {
 
     <!-- Central large yellow star -->
     <path
-        android:pathData="M54,32 Q54,52 74,54 Q54,56 54,74 Q54,56 34,54 Q54,52 54,32 Z"
+        android:pathData="M54,30 Q54,50 74,54 Q54,58 54,78 Q54,58 34,54 Q54,50 54,30 Z"
         android:fillColor="#F5B942"/>
 
-    <!-- Top-left small red star -->
+    <!-- Top-left small red star (closer to center) -->
     <path
-        android:pathData="M28,22 Q28,30 36,31 Q28,32 28,40 Q28,32 20,31 Q28,30 28,22 Z"
+        android:pathData="M34,28 Q34,35 41,36 Q34,37 34,44 Q34,37 27,36 Q34,35 34,28 Z"
         android:fillColor="#E05252"/>
 
-    <!-- Top-right small blue star -->
+    <!-- Top-right small blue star (closer to center) -->
     <path
-        android:pathData="M80,22 Q80,30 88,31 Q80,32 80,40 Q80,32 72,31 Q80,30 80,22 Z"
+        android:pathData="M74,28 Q74,35 81,36 Q74,37 74,44 Q74,37 67,36 Q74,35 74,28 Z"
         android:fillColor="#5285E0"/>
 
-    <!-- Bottom-left small green star -->
+    <!-- Bottom-left small green star (closer to center) -->
     <path
-        android:pathData="M28,68 Q28,76 36,77 Q28,78 28,86 Q28,78 20,77 Q28,76 28,68 Z"
+        android:pathData="M34,64 Q34,71 41,72 Q34,73 34,80 Q34,73 27,72 Q34,71 34,64 Z"
         android:fillColor="#52C07A"/>
 
-    <!-- Bottom-right small purple star -->
+    <!-- Bottom-right small purple star (closer to center) -->
     <path
-        android:pathData="M80,68 Q80,76 88,77 Q80,78 80,86 Q80,78 72,77 Q80,76 80,68 Z"
+        android:pathData="M74,64 Q74,71 81,72 Q74,73 74,80 Q74,73 67,72 Q74,71 74,64 Z"
         android:fillColor="#A052E0"/>
 
 </vector>
@@ -216,7 +216,7 @@ dependencies {
     <string name="paid_off">%s is a paid model and is turned off (no balance or key problem). Add credits and enter the key again.</string>
     <string name="tutorial_btn">Tutorial</string>
     <string name="paste">Paste</string>
-    <string name="limit_label">Token limit (optional, for % left)</string>
+    <string name="limit_label">Token limit (optional, overrides default)</string>
     <string name="left_pct">≈ %1$d%% left</string>
     <string name="reset_counter">Reset counter</string>
     <string name="unlock_btn">I topped up my balance</string>
@@ -240,6 +240,14 @@ dependencies {
     <string name="tut_cerebras">1. Tap Get key (cloud.cerebras.ai).\n2. Sign up or sign in.\n3. Open API Keys and create a key.\n4. Copy the key and tap Paste in Horus.\nRequires a paid plan.</string>
     <string name="tut_openrouter">1. Tap Get key (openrouter.ai/keys).\n2. Sign up or sign in.\n3. Tap Create Key.\n4. Copy the key right away, it is shown once.\n5. Tap Paste in Horus.\nFree models have daily limits. Use Refresh model list to pick one.</string>
     <string name="tut_mistral">1. Tap Get key (console.mistral.ai/api-keys).\n2. Sign up or sign in.\n3. Add a payment method and top up the balance.\n4. Create an API key.\n5. Copy the key and tap Paste in Horus.\nRequires a paid plan.</string>
+    <!-- New in 0.1.5 -->
+    <string name="copy">Copy</string>
+    <string name="share_stub">Share</string>
+    <string name="tts_play">Read aloud</string>
+    <string name="tts_pause">Stop reading</string>
+    <string name="regenerate">Regenerate answer</string>
+    <string name="tts_setting">Read answers aloud (TTS)</string>
+    <string name="tts_hint">Uses the device\'s built-in voice. Language follows the message language.</string>
 </resources>
 =====FILE: app/src/main/res/values-ru/strings.xml=====
 <?xml version="1.0" encoding="utf-8"?>
@@ -280,7 +288,7 @@ dependencies {
     <string name="paid_off">%s — платная модель, она выключена (нет баланса или проблема с ключом). Пополните баланс и введите ключ заново.</string>
     <string name="tutorial_btn">Туториал</string>
     <string name="paste">Вставить</string>
-    <string name="limit_label">Лимит токенов (необязательно, для % остатка)</string>
+    <string name="limit_label">Лимит токенов (необязательно, переопределяет дефолт)</string>
     <string name="left_pct">≈ %1$d%% осталось</string>
     <string name="reset_counter">Сбросить счётчик</string>
     <string name="unlock_btn">Я пополнил баланс</string>
@@ -304,6 +312,14 @@ dependencies {
     <string name="tut_cerebras">1. Нажмите «Получить ключ» (cloud.cerebras.ai).\n2. Зарегистрируйтесь или войдите.\n3. Откройте API Keys и создайте ключ.\n4. Скопируйте ключ и нажмите «Вставить» в Horus.\nТребуется платный план.</string>
     <string name="tut_openrouter">1. Нажмите «Получить ключ» (openrouter.ai/keys).\n2. Зарегистрируйтесь или войдите.\n3. Нажмите Create Key.\n4. Сразу скопируйте ключ: он показывается один раз.\n5. Нажмите «Вставить» в Horus.\nУ бесплатных моделей есть дневные лимиты. Выбрать модель можно кнопкой «Обновить список моделей».</string>
     <string name="tut_mistral">1. Нажмите «Получить ключ» (console.mistral.ai/api-keys).\n2. Зарегистрируйтесь или войдите.\n3. Добавьте способ оплаты и пополните баланс.\n4. Создайте API-ключ.\n5. Скопируйте ключ и нажмите «Вставить» в Horus.\nТребуется платный план.</string>
+    <!-- Новое в 0.1.5 -->
+    <string name="copy">Копировать</string>
+    <string name="share_stub">Поделиться</string>
+    <string name="tts_play">Озвучить</string>
+    <string name="tts_pause">Остановить озвучку</string>
+    <string name="regenerate">Перегенерировать ответ</string>
+    <string name="tts_setting">Озвучивать ответы (TTS)</string>
+    <string name="tts_hint">Использует встроенный голос устройства. Язык соответствует языку сообщения.</string>
 </resources>
 =====FILE: app/src/main/res/values-uk/strings.xml=====
 <?xml version="1.0" encoding="utf-8"?>
@@ -344,7 +360,7 @@ dependencies {
     <string name="paid_off">%s — платна модель, її вимкнено (немає балансу або проблема з ключем). Поповніть баланс і введіть ключ заново.</string>
     <string name="tutorial_btn">Туторіал</string>
     <string name="paste">Вставити</string>
-    <string name="limit_label">Ліміт токенів (за бажанням, для % залишку)</string>
+    <string name="limit_label">Ліміт токенів (за бажанням, переопределяє дефолт)</string>
     <string name="left_pct">≈ %1$d%% залишилось</string>
     <string name="reset_counter">Скинути лічильник</string>
     <string name="unlock_btn">Я поповнив баланс</string>
@@ -368,6 +384,14 @@ dependencies {
     <string name="tut_cerebras">1. Натисніть «Отримати ключ» (cloud.cerebras.ai).\n2. Зареєструйтесь або увійдіть.\n3. Відкрийте API Keys і створіть ключ.\n4. Скопіюйте ключ і натисніть «Вставити» в Horus.\nПотрібен платний план.</string>
     <string name="tut_openrouter">1. Натисніть «Отримати ключ» (openrouter.ai/keys).\n2. Зареєструйтесь або увійдіть.\n3. Натисніть Create Key.\n4. Одразу скопіюйте ключ: він показується один раз.\n5. Натисніть «Вставити» в Horus.\nУ безкоштовних моделей є денні ліміти. Обрати модель можна кнопкою «Оновити список моделей».</string>
     <string name="tut_mistral">1. Натисніть «Отримати ключ» (console.mistral.ai/api-keys).\n2. Зареєструйтесь або увійдіть.\n3. Додайте спосіб оплати й поповніть баланс.\n4. Створіть API-ключ.\n5. Скопіюйте ключ і натисніть «Вставити» в Horus.\nПотрібен платний план.</string>
+    <!-- Нове в 0.1.5 -->
+    <string name="copy">Копіювати</string>
+    <string name="share_stub">Поділитися</string>
+    <string name="tts_play">Озвучити</string>
+    <string name="tts_pause">Зупинити озвучку</string>
+    <string name="regenerate">Перегенерувати відповідь</string>
+    <string name="tts_setting">Озвучувати відповіді (TTS)</string>
+    <string name="tts_hint">Використовує вбудований голос пристрою. Мова відповідає мові повідомлення.</string>
 </resources>
 =====FILE: app/src/main/java/com/horusai/app/Store.kt=====
 package com.horusai.app
@@ -384,6 +408,13 @@ import kotlinx.coroutines.SupervisorJob
 import org.json.JSONArray
 import org.json.JSONObject
 
+// Default free-tier token limits (approximate monthly/daily totals in tokens)
+private val DEFAULT_LIMITS = mapOf(
+    "gemini" to 1_000_000,   // Gemini free: ~1M tokens/month
+    "groq"   to 500_000,     // Groq free: ~500k tokens/day across models
+    "openrouter" to 200_000  // OpenRouter free: varies, ~200k conservative
+)
+
 enum class Prov(
     val id: String,
     val title: String,
@@ -393,14 +424,30 @@ enum class Prov(
     val tiers: List<Int>,
     val keyUrl: String
 ) {
-    GEMINI("gemini", "Gemini", true, "gemini-3.5-flash-lite", listOf("gemini-3.5-flash-lite", "gemini-3.8-flash"), listOf(0, 1), "https://aistudio.google.com/apikey"),
-    GROQ("groq", "Groq", true, "openai/gpt-oss-120b", listOf("openai/gpt-oss-20b", "openai/gpt-oss-120b", "qwen/qwen3.8-27b"), listOf(0, 1, 1), "https://console.groq.com/keys"),
-    OPENROUTER("openrouter", "OpenRouter", true, "openrouter/free", listOf("openrouter/free"), listOf(1), "https://openrouter.ai/keys"),
-    OPENAI("openai", "ChatGPT", false, "gpt-5.4-mini", listOf("gpt-5.4-nano", "gpt-5.4-mini", "gpt-5.4"), listOf(0, 1, 2), "https://platform.openai.com/api-keys"),
-    CLAUDE("claude", "Claude", false, "claude-haiku-5-5", listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"), listOf(0, 1, 2), "https://console.anthropic.com/settings/keys"),
-    DEEPSEEK("deepseek", "DeepSeek", false, "deepseek-chat", listOf("deepseek-chat", "deepseek-reasoner"), listOf(0, 2), "https://platform.deepseek.com/api_keys"),
-    CEREBRAS("cerebras", "Cerebras", false, "gpt-oss-120b", listOf("gpt-oss-120b", "qwen-3.8-27b"), listOf(1, 1), "https://cloud.cerebras.ai"),
-    MISTRAL("mistral", "Mistral", false, "mistral-small-latest", listOf("mistral-small-latest", "mistral-large-latest"), listOf(0, 2), "https://console.mistral.ai/api-keys");
+    GEMINI("gemini", "Gemini", true, "gemini-3.5-flash-lite",
+        listOf("gemini-3.5-flash-lite", "gemini-3.8-flash"), listOf(0, 1),
+        "https://aistudio.google.com/apikey"),
+    GROQ("groq", "Groq", true, "openai/gpt-oss-120b",
+        listOf("openai/gpt-oss-20b", "openai/gpt-oss-120b", "qwen/qwen3.8-27b"), listOf(0, 1, 1),
+        "https://console.groq.com/keys"),
+    OPENROUTER("openrouter", "OpenRouter", true, "openrouter/free",
+        listOf("openrouter/free"), listOf(1),
+        "https://openrouter.ai/keys"),
+    OPENAI("openai", "ChatGPT", false, "gpt-5.4-mini",
+        listOf("gpt-5.4-nano", "gpt-5.4-mini", "gpt-5.4"), listOf(0, 1, 2),
+        "https://platform.openai.com/api-keys"),
+    CLAUDE("claude", "Claude", false, "claude-haiku-5-5",
+        listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5"), listOf(0, 1, 2),
+        "https://console.anthropic.com/settings/keys"),
+    DEEPSEEK("deepseek", "DeepSeek", false, "deepseek-chat",
+        listOf("deepseek-chat", "deepseek-reasoner"), listOf(0, 2),
+        "https://platform.deepseek.com/api_keys"),
+    CEREBRAS("cerebras", "Cerebras", false, "gpt-oss-120b",
+        listOf("gpt-oss-120b", "qwen-3.8-27b"), listOf(1, 1),
+        "https://cloud.cerebras.ai"),
+    MISTRAL("mistral", "Mistral", false, "mistral-small-latest",
+        listOf("mistral-small-latest", "mistral-large-latest"), listOf(0, 2),
+        "https://console.mistral.ai/api-keys");
 
     val aliases: List<String>
         get() = when (this) {
@@ -420,8 +467,8 @@ class Msg(
     val text: String,
     val from: String = "",
     val note: String = "",
-    val sentAt: Long = 0L,       // epoch ms when user sent / AI replied
-    val thinkMs: Long = 0L       // ms the AI took to generate (0 for user messages)
+    val sentAt: Long = 0L,
+    val thinkMs: Long = 0L
 )
 
 class Chat(val id: Long, title: String) {
@@ -445,15 +492,20 @@ class AppState(ctx: Context) {
     var discuss by mutableStateOf(false)
     var busy by mutableStateOf(false)
     var peekTick by mutableStateOf(0)
+    var ttsEnabled by mutableStateOf(false)
 
-    init {
-        load()
-    }
+    init { load() }
 
     fun key(p: Prov): String = keys[p.id] ?: ""
     fun model(p: Prov): String = models[p.id]?.takeIf { it.isNotBlank() } ?: p.defaultModel
     fun active(p: Prov): Boolean = (enabled[p.id] ?: true) && key(p).isNotBlank() && locked[p.id] != true
     fun anyActive(): Boolean = Prov.values().any { active(it) }
+
+    // Returns the effective limit: user-set limit OR default for free AIs
+    fun effectiveLimit(p: Prov): Int {
+        val userSet = limits[p.id] ?: 0
+        return if (userSet > 0) userSet else DEFAULT_LIMITS[p.id] ?: 0
+    }
 
     fun setKey(p: Prov, k: String) { keys[p.id] = k; locked[p.id] = false; blocked[p.id] = false; save() }
     fun setEnabled(p: Prov, v: Boolean) { if (locked[p.id] == true) return; enabled[p.id] = v; save() }
@@ -463,20 +515,17 @@ class AppState(ctx: Context) {
     fun setLimit(p: Prov, n: Int) { limits[p.id] = n; save() }
     fun resetUsed(p: Prov) { used[p.id] = 0; save() }
     fun pickModel(p: Prov, m: String) { models[p.id] = m; save() }
+    fun setTts(v: Boolean) { ttsEnabled = v; save() }
 
     fun nextModel(p: Prov) {
-        val l = p.models
-        val i = l.indexOf(model(p))
-        models[p.id] = l[(i + 1) % l.size]
-        save()
+        val l = p.models; val i = l.indexOf(model(p))
+        models[p.id] = l[(i + 1) % l.size]; save()
     }
 
     fun newChat() {
         if (current.msgs.isEmpty() && chats.contains(current)) return
         val c = Chat(System.currentTimeMillis(), "")
-        chats.add(0, c)
-        current = c
-        save()
+        chats.add(0, c); current = c; save()
     }
 
     fun deleteChat(c: Chat) {
@@ -497,6 +546,7 @@ class AppState(ctx: Context) {
             o.optJSONObject("locked")?.let { j -> j.keys().forEach { locked[it] = j.getBoolean(it) } }
             o.optJSONObject("limits")?.let { j -> j.keys().forEach { limits[it] = j.getInt(it) } }
             discuss = o.optBoolean("discuss2", false)
+            ttsEnabled = o.optBoolean("tts", false)
             val arr = o.optJSONArray("chats") ?: JSONArray()
             for (i in 0 until arr.length()) {
                 val c = arr.getJSONObject(i)
@@ -505,18 +555,14 @@ class AppState(ctx: Context) {
                 for (k in 0 until ms.length()) {
                     val m = ms.getJSONObject(k)
                     ch.msgs.add(Msg(
-                        m.getString("r"),
-                        m.getString("t"),
-                        m.optString("f"),
-                        m.optString("n"),
-                        m.optLong("sa", 0L),
-                        m.optLong("th", 0L)
+                        m.getString("r"), m.getString("t"),
+                        m.optString("f"), m.optString("n"),
+                        m.optLong("sa", 0L), m.optLong("th", 0L)
                     ))
                 }
                 chats.add(ch)
             }
-        } catch (e: Exception) {
-        }
+        } catch (_: Exception) {}
         if (chats.isEmpty()) chats.add(Chat(System.currentTimeMillis(), ""))
         current = chats.first()
     }
@@ -531,24 +577,20 @@ class AppState(ctx: Context) {
             o.put("locked", JSONObject(locked.toMap()))
             o.put("limits", JSONObject(limits.toMap()))
             o.put("discuss2", discuss)
+            o.put("tts", ttsEnabled)
             val arr = JSONArray()
             for (c in chats) {
                 val ms = JSONArray()
                 for (m in c.msgs) {
-                    ms.put(JSONObject()
-                        .put("r", m.role)
-                        .put("t", m.text)
-                        .put("f", m.from)
-                        .put("n", m.note)
-                        .put("sa", m.sentAt)
-                        .put("th", m.thinkMs))
+                    ms.put(JSONObject().put("r", m.role).put("t", m.text)
+                        .put("f", m.from).put("n", m.note)
+                        .put("sa", m.sentAt).put("th", m.thinkMs))
                 }
                 arr.put(JSONObject().put("id", c.id).put("title", c.title).put("m", ms))
             }
             o.put("chats", arr)
             sp.edit().putString("s", o.toString()).apply()
-        } catch (e: Exception) {
-        }
+        } catch (_: Exception) {}
     }
 }
 =====FILE: app/src/main/java/com/horusai/app/Api.kt=====
@@ -769,10 +811,7 @@ object Core {
                     if (t.lowercase().startsWith(c)) {
                         val t2 = t.substring(c.length).trimStart()
                         val mm = matchAlias(t2.lowercase())
-                        if (mm != null) {
-                            t = t2
-                            m2 = mm
-                        }
+                        if (mm != null) { t = t2; m2 = mm }
                         break
                     }
                 }
@@ -795,9 +834,7 @@ object Core {
     }
 
     private suspend fun ask(st: AppState, p: Prov, system: String, hist: List<Pair<String, String>>): Result<Api.Reply> =
-        withContext(Dispatchers.IO) {
-            runCatching { Api.ask(p, st.key(p), st.model(p), system, hist) }
-        }
+        withContext(Dispatchers.IO) { runCatching { Api.ask(p, st.key(p), st.model(p), system, hist) } }
 
     private fun account(st: AppState, p: Prov, r: Result<Api.Reply>): Api.Reply? {
         val rep = r.getOrNull()
@@ -837,25 +874,21 @@ object Core {
             if (chat.title.isBlank()) chat.title = raw.take(28)
             val active = Prov.values().filter { st.active(it) }
             if (active.isEmpty()) {
-                chat.msgs.add(Msg("sys", ctx.getString(R.string.err_no_keys)))
-                return
+                chat.msgs.add(Msg("sys", ctx.getString(R.string.err_no_keys))); return
             }
             val hist = history(chat)
             val named = targets(raw)
 
             if (named.isNotEmpty()) {
-                for (p in named.filter { !st.active(it) }) {
+                for (p in named.filter { !st.active(it) })
                     chat.msgs.add(Msg("sys", ctx.getString(R.string.err_ai_off, p.title)))
-                }
                 val ok = named.filter { st.active(it) }
                 val res = coroutineScope {
-                    ok.map { p ->
-                        async {
-                            val t0 = System.currentTimeMillis()
-                            val r = ask(st, p, system(active, p, ""), hist)
-                            Triple(p, r, System.currentTimeMillis() - t0)
-                        }
-                    }.awaitAll()
+                    ok.map { p -> async {
+                        val t0 = System.currentTimeMillis()
+                        val r = ask(st, p, system(active, p, ""), hist)
+                        Triple(p, r, System.currentTimeMillis() - t0)
+                    } }.awaitAll()
                 }
                 for ((p, r, ms) in res) {
                     val rep = account(st, p, r)
@@ -864,13 +897,11 @@ object Core {
                 }
             } else if (active.size >= 2 && st.discuss) {
                 val drafts = coroutineScope {
-                    active.map { p ->
-                        async {
-                            val t0 = System.currentTimeMillis()
-                            val r = ask(st, p, system(active, p, DRAFT), hist)
-                            Triple(p, r, System.currentTimeMillis() - t0)
-                        }
-                    }.awaitAll()
+                    active.map { p -> async {
+                        val t0 = System.currentTimeMillis()
+                        val r = ask(st, p, system(active, p, DRAFT), hist)
+                        Triple(p, r, System.currentTimeMillis() - t0)
+                    } }.awaitAll()
                 }
                 val good = ArrayList<Triple<Prov, String, Long>>()
                 for ((p, r, ms) in drafts) {
@@ -879,8 +910,7 @@ object Core {
                 }
                 if (good.isEmpty()) return
                 if (good.size == 1) {
-                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, good[0].first.title, good[0].first.title, System.currentTimeMillis(), good[0].third))
-                    return
+                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, good[0].first.title, good[0].first.title, System.currentTimeMillis(), good[0].third)); return
                 }
                 val synth = good[0].first
                 val packed = good.joinToString("\n\n") { "[${it.first.title}]:\n${it.second}" }
@@ -891,12 +921,8 @@ object Core {
                 val thinkMs2 = System.currentTimeMillis() - t0
                 val rep2 = account(st, synth, r2)
                 val names = good.joinToString(", ") { it.first.title }
-                if (rep2 != null) {
-                    chat.msgs.add(Msg("ai", rep2.text.ifBlank { "…" }, synth.title, names, System.currentTimeMillis(), thinkMs2))
-                } else {
-                    report(st, chat, synth, r2)
-                    chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, synth.title, synth.title, System.currentTimeMillis(), good[0].third))
-                }
+                if (rep2 != null) chat.msgs.add(Msg("ai", rep2.text.ifBlank { "…" }, synth.title, names, System.currentTimeMillis(), thinkMs2))
+                else { report(st, chat, synth, r2); chat.msgs.add(Msg("ai", good[0].second.ifBlank { "…" }, synth.title, synth.title, System.currentTimeMillis(), good[0].third)) }
             } else {
                 val p = active.first()
                 val t0 = System.currentTimeMillis()
@@ -908,11 +934,9 @@ object Core {
             }
         } finally {
             val newly = Prov.values().filter { st.locked[it.id] == true && it !in lockedBefore }
-            if (newly.isNotEmpty() && chat.msgs.drop(startSize).none { it.role == "ai" }) {
+            if (newly.isNotEmpty() && chat.msgs.drop(startSize).none { it.role == "ai" })
                 chat.msgs.add(Msg("sys", ctx.getString(R.string.paid_off, newly.joinToString(", ") { it.title })))
-            }
-            st.busy = false
-            st.save()
+            st.busy = false; st.save()
         }
     }
 }
@@ -920,80 +944,39 @@ object Core {
 package com.horusai.app
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationDrawerItem
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.rememberDrawerState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -1008,32 +991,50 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 private val Gold = Color(0xFFF5B942)
 private val Navy = Color(0xFF101426)
 private val Panel = Color(0xFF171C33)
 private val Panel2 = Color(0xFF222844)
 private val Ink = Color(0xFFEDEFF7)
+private val Red = Color(0xFFFF8A80)
+private val Green = Color(0xFF7BD88F)
 
 private val timeFmt = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-
-private fun fmtTime(epochMs: Long): String =
-    if (epochMs > 0L) timeFmt.format(Date(epochMs)) else ""
-
-private fun fmtThink(ms: Long): String = when {
-    ms <= 0L -> ""
-    ms < 1000L -> "${ms}ms"
-    else -> "${"%.1f".format(ms / 1000.0)}s"
+private fun fmtTime(ms: Long) = if (ms > 0L) timeFmt.format(Date(ms)) else ""
+private fun fmtThink(ms: Long) = when {
+    ms <= 0L -> ""; ms < 1000L -> "${ms}ms"; else -> "${"%.1f".format(ms / 1000.0)}s"
 }
+private fun fmtTokens(used: Int, limit: Int): String {
+    val usedK = if (used >= 1000) "${used / 1000}k" else "$used"
+    return if (limit > 0) {
+        val limK = if (limit >= 1000) "${limit / 1000}k" else "$limit"
+        val pct = (used * 100L / limit).toInt().coerceIn(0, 100)
+        "$usedK / $limK — $pct%"
+    } else "≈ $usedK tokens"
+}
+
+// Global TTS state
+private var ttsEngine: TextToSpeech? = null
+private var ttsReady = false
+private var ttsSpeakingId = mutableStateOf<Long?>(null)  // msg sentAt being spoken
+private var ttsProgress = mutableStateOf(0f)             // 0..1
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         val st = AppState(applicationContext)
+        // Init TTS
+        ttsEngine = TextToSpeech(this) { status ->
+            ttsReady = (status == TextToSpeech.SUCCESS)
+        }
         setContent { HorusTheme { App(st) } }
+    }
+
+    override fun onDestroy() {
+        ttsEngine?.shutdown(); ttsEngine = null; super.onDestroy()
     }
 }
 
@@ -1047,8 +1048,7 @@ fun HorusTheme(content: @Composable () -> Unit) {
             surfaceVariant = Panel2, onSurfaceVariant = Ink,
             secondaryContainer = Panel2, onSecondaryContainer = Ink,
             errorContainer = Color(0xFF5C1F28), onErrorContainer = Color(0xFFFFDAD9)
-        ),
-        content = content
+        ), content = content
     )
 }
 
@@ -1069,41 +1069,22 @@ fun App(st: AppState) {
         gesturesEnabled = screen == "chat",
         drawerContent = {
             ModalDrawerSheet {
-                Text(
-                    stringResource(R.string.app_name),
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(20.dp)
-                )
-                Button(
-                    onClick = { st.newChat(); screen = "chat"; scope.launch { drawer.close() } },
-                    modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth()
-                ) {
-                    Icon(Icons.Default.Add, null)
-                    Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.app_name), style = MaterialTheme.typography.titleLarge,
+                    color = Gold, modifier = Modifier.padding(20.dp))
+                Button(onClick = { st.newChat(); screen = "chat"; scope.launch { drawer.close() } },
+                    modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth()) {
+                    Icon(Icons.Default.Add, null); Spacer(Modifier.width(8.dp))
                     Text(stringResource(R.string.new_chat))
                 }
-                Text(
-                    stringResource(R.string.recent),
-                    style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(start = 20.dp, top = 16.dp, bottom = 4.dp)
-                )
+                Text(stringResource(R.string.recent), style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(start = 20.dp, top = 16.dp, bottom = 4.dp))
                 LazyColumn(Modifier.weight(1f)) {
                     items(st.chats.toList(), key = { it.id }) { c ->
                         NavigationDrawerItem(
-                            label = {
-                                Text(
-                                    if (c.title.isBlank()) stringResource(R.string.new_chat) else c.title,
-                                    maxLines = 1
-                                )
-                            },
+                            label = { Text(if (c.title.isBlank()) stringResource(R.string.new_chat) else c.title, maxLines = 1) },
                             selected = c === st.current,
                             onClick = { st.current = c; screen = "chat"; scope.launch { drawer.close() } },
-                            badge = {
-                                IconButton(onClick = { st.deleteChat(c) }) {
-                                    Icon(Icons.Default.Delete, stringResource(R.string.delete_chat))
-                                }
-                            },
+                            badge = { IconButton(onClick = { st.deleteChat(c) }) { Icon(Icons.Default.Delete, stringResource(R.string.delete_chat)) } },
                             modifier = Modifier.padding(horizontal = 12.dp)
                         )
                     }
@@ -1119,17 +1100,10 @@ fun App(st: AppState) {
         }
     ) {
         Box(Modifier.fillMaxSize()) {
-            if (screen == "settings") {
-                SettingsScreen(st, onBack = { screen = "chat" })
-            } else {
-                ChatScreen(st, onMenu = { scope.launch { drawer.open() } }, onPanel = { panel = true })
-            }
-            if (panel) {
-                AiPanel(st, onClose = { panel = false }, onSettings = { panel = false; screen = "settings" })
-            }
-            if (tutorial) {
-                TutorialDialog(onClose = { tutorial = false }, onSettings = { tutorial = false; screen = "settings" })
-            }
+            if (screen == "settings") SettingsScreen(st, onBack = { screen = "chat" })
+            else ChatScreen(st, onMenu = { scope.launch { drawer.open() } }, onPanel = { panel = true })
+            if (panel) AiPanel(st, onClose = { panel = false }, onSettings = { panel = false; screen = "settings" })
+            if (tutorial) TutorialDialog(onClose = { tutorial = false }, onSettings = { tutorial = false; screen = "settings" })
         }
     }
 }
@@ -1142,14 +1116,12 @@ fun ChatScreen(st: AppState, onMenu: () -> Unit, onPanel: () -> Unit) {
     var input by remember { mutableStateOf("") }
     val list = rememberLazyListState()
     var peek by remember { mutableStateOf(false) }
-    LaunchedEffect(st.peekTick) {
-        if (st.peekTick > 0) {
-            peek = true
-            delay(4000)
-            peek = false
-        }
-    }
+    val speakingId by ttsSpeakingId
+    val ttsProgress by ttsProgress
 
+    LaunchedEffect(st.peekTick) {
+        if (st.peekTick > 0) { peek = true; delay(4000); peek = false }
+    }
     LaunchedEffect(chat.id, chat.msgs.size, st.busy) {
         val n = chat.msgs.size + if (st.busy) 1 else 0
         if (n > 0) list.animateScrollToItem(n - 1)
@@ -1158,72 +1130,64 @@ fun ChatScreen(st: AppState, onMenu: () -> Unit, onPanel: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    Text(if (chat.title.isBlank()) stringResource(R.string.new_chat) else chat.title, maxLines = 1)
-                },
+                title = { Text(if (chat.title.isBlank()) stringResource(R.string.new_chat) else chat.title, maxLines = 1) },
                 navigationIcon = { IconButton(onClick = onMenu) { Icon(Icons.Default.Menu, null) } },
                 actions = {
-                    AnimatedVisibility(
-                        visible = peek,
-                        enter = slideInHorizontally { it } + fadeIn(),
-                        exit = slideOutHorizontally { it } + fadeOut()
-                    ) {
+                    AnimatedVisibility(visible = peek, enter = slideInHorizontally { it } + fadeIn(), exit = slideOutHorizontally { it } + fadeOut()) {
                         Text("⚠", color = Red, fontSize = 20.sp)
                     }
-                    IconButton(onClick = onPanel) {
-                        Icon(Icons.Default.Face, stringResource(R.string.ai_panel_title))
-                    }
+                    IconButton(onClick = onPanel) { Icon(Icons.Default.Face, stringResource(R.string.ai_panel_title)) }
                 }
             )
         }
     ) { pad ->
         Column(Modifier.padding(pad).fillMaxSize()) {
             if (!st.anyActive()) {
-                Text(
-                    stringResource(R.string.banner_nokeys),
-                    color = MaterialTheme.colorScheme.onErrorContainer,
-                    fontSize = 12.sp,
-                    modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.errorContainer).padding(8.dp)
-                )
+                Text(stringResource(R.string.banner_nokeys), color = MaterialTheme.colorScheme.onErrorContainer,
+                    fontSize = 12.sp, modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.errorContainer).padding(8.dp))
             }
-            LazyColumn(
-                Modifier.weight(1f).fillMaxWidth(),
-                state = list,
-                contentPadding = PaddingValues(12.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(chat.msgs.toList()) { m -> Bubble(m) }
-                if (st.busy) {
-                    item {
-                        Text(
-                            stringResource(R.string.thinking),
-                            color = MaterialTheme.colorScheme.primary,
-                            fontSize = 13.sp
-                        )
+            // TTS player bar
+            if (speakingId != null) {
+                Row(Modifier.fillMaxWidth().background(Panel2).padding(horizontal = 12.dp, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically) {
+                    IconButton(onClick = { ttsEngine?.stop(); ttsSpeakingId.value = null }, modifier = Modifier.size(32.dp)) {
+                        Icon(Icons.Default.Close, "Stop", tint = Gold, modifier = Modifier.size(18.dp))
+                    }
+                    Slider(value = ttsProgress, onValueChange = {}, modifier = Modifier.weight(1f),
+                        colors = SliderDefaults.colors(thumbColor = Gold, activeTrackColor = Gold))
+                    IconButton(onClick = { ttsEngine?.stop(); ttsSpeakingId.value = null }, modifier = Modifier.size(32.dp)) {
+                        Icon(Icons.Default.PlayArrow, "Playing", tint = Gold, modifier = Modifier.size(18.dp))
                     }
                 }
             }
-            Row(Modifier.fillMaxWidth().padding(8.dp), verticalAlignment = Alignment.Bottom) {
-                OutlinedTextField(
-                    value = input,
-                    onValueChange = { input = it },
-                    modifier = Modifier.weight(1f),
-                    placeholder = { Text(stringResource(R.string.type_message)) },
-                    maxLines = 5
-                )
-                IconButton(
-                    enabled = !st.busy && input.isNotBlank(),
-                    onClick = {
-                        val t = input.trim()
-                        input = ""
-                        st.scope.launch { Core.handle(ctx, st, chat, t) }
-                    }
-                ) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.Send,
-                        stringResource(R.string.send),
-                        tint = MaterialTheme.colorScheme.primary
+            LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list,
+                contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                items(chat.msgs.toList()) { m ->
+                    Bubble(m, st, chat, speakingId,
+                        onRegenerate = { msgToRegen ->
+                            val idx = chat.msgs.indexOf(msgToRegen)
+                            if (idx > 0) {
+                                // Find the user message before this AI message
+                                val userMsg = (idx - 1 downTo 0).map { chat.msgs[it] }.firstOrNull { it.role == "user" }
+                                if (userMsg != null) {
+                                    // Remove from idx onwards (the AI reply and any after)
+                                    while (chat.msgs.size > idx) chat.msgs.removeAt(idx)
+                                    st.scope.launch { Core.handle(ctx, st, chat, userMsg.text) }
+                                }
+                            }
+                        }
                     )
+                }
+                if (st.busy) { item { Text(stringResource(R.string.thinking), color = Gold, fontSize = 13.sp) } }
+            }
+            Row(Modifier.fillMaxWidth().padding(8.dp), verticalAlignment = Alignment.Bottom) {
+                OutlinedTextField(value = input, onValueChange = { input = it },
+                    modifier = Modifier.weight(1f), placeholder = { Text(stringResource(R.string.type_message)) }, maxLines = 5)
+                IconButton(enabled = !st.busy && input.isNotBlank(), onClick = {
+                    val t = input.trim(); input = ""
+                    st.scope.launch { Core.handle(ctx, st, chat, t) }
+                }) {
+                    Icon(Icons.AutoMirrored.Filled.Send, stringResource(R.string.send), tint = Gold)
                 }
             }
         }
@@ -1231,36 +1195,84 @@ fun ChatScreen(st: AppState, onMenu: () -> Unit, onPanel: () -> Unit) {
 }
 
 @Composable
-fun Bubble(m: Msg) {
+fun Bubble(
+    m: Msg,
+    st: AppState,
+    chat: Chat,
+    speakingId: Long?,
+    onRegenerate: (Msg) -> Unit
+) {
     val me = m.role == "user"
     val sys = m.role == "sys"
-    val bg = when {
-        me -> Gold.copy(alpha = 0.18f)
-        sys -> MaterialTheme.colorScheme.errorContainer
-        else -> Panel2
-    }
+    val clip = LocalClipboardManager.current
+    val bg = when { me -> Gold.copy(alpha = 0.18f); sys -> MaterialTheme.colorScheme.errorContainer; else -> Panel2 }
+
     Column(Modifier.fillMaxWidth(), horizontalAlignment = if (me) Alignment.End else Alignment.Start) {
-        if (m.role == "ai" && m.from.isNotBlank()) {
+        if (m.role == "ai" && m.from.isNotBlank())
             Text(m.from, color = Gold, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-        }
+
         Box(Modifier.widthIn(max = 320.dp).background(bg, RoundedCornerShape(14.dp)).padding(10.dp)) {
             SelectionContainer { Text(m.text, color = if (sys) MaterialTheme.colorScheme.onErrorContainer else Ink) }
         }
-        // Timestamps row
-        val timeStr = fmtTime(m.sentAt)
-        val thinkStr = fmtThink(m.thinkMs)
-        val metaParts = buildList {
+
+        // Action buttons row
+        if (!sys) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(0.dp)) {
+                // Copy button (both user and AI)
+                IconButton(onClick = { clip.setText(AnnotatedString(m.text)) }, modifier = Modifier.size(32.dp)) {
+                    Icon(Icons.Default.ContentCopy, stringResource(R.string.copy), tint = Ink.copy(alpha = 0.5f), modifier = Modifier.size(16.dp))
+                }
+                // Share stub (paper plane) - both user and AI
+                IconButton(onClick = { /* TODO: share */ }, modifier = Modifier.size(32.dp)) {
+                    Icon(Icons.Default.Send, stringResource(R.string.share_stub), tint = Ink.copy(alpha = 0.5f), modifier = Modifier.size(16.dp))
+                }
+                if (m.role == "ai") {
+                    // TTS play/pause
+                    val isSpeaking = speakingId == m.sentAt
+                    IconButton(onClick = {
+                        if (isSpeaking) {
+                            ttsEngine?.stop(); ttsSpeakingId.value = null
+                        } else {
+                            if (ttsReady) {
+                                ttsEngine?.stop()
+                                ttsSpeakingId.value = m.sentAt
+                                ttsProgress.value = 0f
+                                val words = m.text.split(" ")
+                                val total = words.size.coerceAtLeast(1)
+                                var spoken = 0
+                                ttsEngine?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+                                    override fun onStart(id: String?) {}
+                                    override fun onDone(id: String?) { ttsSpeakingId.value = null; ttsProgress.value = 0f }
+                                    override fun onError(id: String?) { ttsSpeakingId.value = null }
+                                    override fun onRangeStart(utteranceId: String?, start: Int, end: Int, frame: Int) {
+                                        spoken++; ttsProgress.value = spoken.toFloat() / total
+                                    }
+                                })
+                                ttsEngine?.speak(m.text, TextToSpeech.QUEUE_FLUSH, null, m.sentAt.toString())
+                            }
+                        }
+                    }, modifier = Modifier.size(32.dp)) {
+                        Icon(if (isSpeaking) Icons.Default.Pause else Icons.Default.PlayArrow,
+                            if (isSpeaking) stringResource(R.string.tts_pause) else stringResource(R.string.tts_play),
+                            tint = if (isSpeaking) Gold else Ink.copy(alpha = 0.5f),
+                            modifier = Modifier.size(16.dp))
+                    }
+                    // Regenerate
+                    IconButton(onClick = { onRegenerate(m) }, modifier = Modifier.size(32.dp)) {
+                        Icon(Icons.Default.Refresh, stringResource(R.string.regenerate), tint = Ink.copy(alpha = 0.5f), modifier = Modifier.size(16.dp))
+                    }
+                }
+            }
+        }
+
+        // Meta: answered by · time · think
+        val parts = buildList {
             if (m.note.isNotBlank()) add(stringResource(R.string.answered_by, m.note))
-            if (timeStr.isNotBlank()) add(timeStr)
-            if (thinkStr.isNotBlank()) add("⏱ $thinkStr")
+            val t = fmtTime(m.sentAt); if (t.isNotBlank()) add(t)
+            val th = fmtThink(m.thinkMs); if (th.isNotBlank()) add("⏱ $th")
         }
-        if (metaParts.isNotEmpty()) {
-            Text(
-                metaParts.joinToString(" · "),
-                fontSize = 11.sp,
-                color = Ink.copy(alpha = 0.5f)
-            )
-        }
+        if (parts.isNotEmpty())
+            Text(parts.joinToString(" · "), fontSize = 11.sp, color = Ink.copy(alpha = 0.4f))
     }
 }
 
@@ -1276,38 +1288,25 @@ private fun tutRes(p: Prov): Int = when (p) {
 }
 
 private fun tierRes(t: Int): Int = when (t) {
-    0 -> R.string.tier_fast
-    1 -> R.string.tier_mid
-    else -> R.string.tier_strong
+    0 -> R.string.tier_fast; 1 -> R.string.tier_mid; else -> R.string.tier_strong
 }
-
-private val Red = Color(0xFFFF8A80)
-private val Green = Color(0xFF7BD88F)
 
 @Composable
 fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
     var menuFor by remember { mutableStateOf<Prov?>(null) }
-    Box(
-        Modifier.fillMaxSize().background(Color(0x99000000))
-            .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onClose() }
-    ) {
-        Surface(
-            Modifier.align(Alignment.CenterEnd).fillMaxHeight().width(310.dp)
-                .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {},
-            color = MaterialTheme.colorScheme.surface
-        ) {
+    Box(Modifier.fillMaxSize().background(Color(0x99000000))
+        .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onClose() }) {
+        Surface(Modifier.align(Alignment.CenterEnd).fillMaxHeight().width(310.dp)
+            .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {},
+            color = MaterialTheme.colorScheme.surface) {
             Column(Modifier.padding(16.dp).verticalScroll(rememberScrollState())) {
                 Text(stringResource(R.string.ai_panel_title), style = MaterialTheme.typography.titleLarge)
                 Text(stringResource(R.string.tap_model), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
                 Spacer(Modifier.height(12.dp))
                 for (p in Prov.values()) {
                     if (p == Prov.values().first { it.free == p.free }) {
-                        Text(
-                            stringResource(if (p.free) R.string.cat_free else R.string.cat_paid),
-                            color = Gold,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
+                        Text(stringResource(if (p.free) R.string.cat_free else R.string.cat_paid),
+                            color = Gold, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 8.dp))
                     }
                     val hasKey = st.key(p).isNotBlank()
                     val locked = st.locked[p.id] == true
@@ -1316,68 +1315,34 @@ fun AiPanel(st: AppState, onClose: () -> Unit, onSettings: () -> Unit) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(p.title, fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.width(6.dp))
-                                Text(
-                                    stringResource(if (p.free) R.string.free else R.string.paid),
-                                    fontSize = 11.sp,
-                                    color = if (p.free) Green else Gold
-                                )
+                                Text(stringResource(if (p.free) R.string.free else R.string.paid),
+                                    fontSize = 11.sp, color = if (p.free) Green else Gold)
                             }
                             if (!hasKey) {
                                 Text(stringResource(R.string.no_key), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
                             } else {
                                 Box {
-                                    Text(
-                                        st.model(p) + "  ›",
-                                        fontSize = 13.sp,
-                                        color = Gold,
-                                        modifier = Modifier.clickable { menuFor = p }.padding(vertical = 2.dp)
-                                    )
+                                    Text(st.model(p) + "  ›", fontSize = 13.sp, color = Gold,
+                                        modifier = Modifier.clickable { menuFor = p }.padding(vertical = 2.dp))
                                     DropdownMenu(expanded = menuFor == p, onDismissRequest = { menuFor = null }) {
                                         p.models.forEachIndexed { i, m ->
-                                            DropdownMenuItem(
-                                                text = {
-                                                    Column {
-                                                        Text(
-                                                            m,
-                                                            fontWeight = if (m == st.model(p)) FontWeight.Bold else FontWeight.Normal
-                                                        )
-                                                        Text(
-                                                            stringResource(tierRes(p.tiers[i])),
-                                                            fontSize = 12.sp,
-                                                            color = Ink.copy(alpha = 0.6f)
-                                                        )
-                                                    }
-                                                },
-                                                onClick = { st.pickModel(p, m); menuFor = null }
-                                            )
+                                            DropdownMenuItem(text = {
+                                                Column {
+                                                    Text(m, fontWeight = if (m == st.model(p)) FontWeight.Bold else FontWeight.Normal)
+                                                    Text(stringResource(tierRes(p.tiers[i])), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                                }
+                                            }, onClick = { st.pickModel(p, m); menuFor = null })
                                         }
                                     }
                                 }
-                                // Token display: "44k / 100k — 44%" or just "44k tokens"
-                                val lim = st.limits[p.id] ?: 0
                                 val usedT = st.used[p.id] ?: 0
-                                val tokenText = if (lim > 0) {
-                                    val pct = (usedT * 100L / lim).toInt().coerceIn(0, 100)
-                                    val usedK = if (usedT >= 1000) "${usedT / 1000}k" else "$usedT"
-                                    val limK = if (lim >= 1000) "${lim / 1000}k" else "$lim"
-                                    "$usedK / $limK — $pct%"
-                                } else {
-                                    val usedK = if (usedT >= 1000) "${usedT / 1000}k" else "$usedT"
-                                    stringResource(R.string.used_tokens_k, usedK)
-                                }
-                                Text(tokenText, fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
-                                if (locked) {
-                                    Text("⚠ " + stringResource(R.string.locked), fontSize = 12.sp, color = Red)
-                                } else if (st.blocked[p.id] == true) {
-                                    Text("⚠ " + stringResource(R.string.blocked), fontSize = 12.sp, color = Red)
-                                }
+                                val lim = st.effectiveLimit(p)
+                                Text(fmtTokens(usedT, lim), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                                if (locked) Text("⚠ " + stringResource(R.string.locked), fontSize = 12.sp, color = Red)
+                                else if (st.blocked[p.id] == true) Text("⚠ " + stringResource(R.string.blocked), fontSize = 12.sp, color = Red)
                             }
                         }
-                        Switch(
-                            checked = st.active(p),
-                            enabled = hasKey && !locked,
-                            onCheckedChange = { st.setEnabled(p, it) }
-                        )
+                        Switch(checked = st.active(p), enabled = hasKey && !locked, onCheckedChange = { st.setEnabled(p, it) })
                     }
                     HorizontalDivider()
                 }
@@ -1413,76 +1378,63 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
     var picker by remember { mutableStateOf<Pair<Prov, List<String>>?>(null) }
     var loadingP by remember { mutableStateOf<Prov?>(null) }
     var errMsg by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
     val needKey = stringResource(R.string.need_key_first)
     val noModels = stringResource(R.string.no_models)
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.settings)) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null) }
-                }
-            )
-        }
-    ) { pad ->
-        Column(
-            Modifier.padding(pad).fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
+
+    Scaffold(topBar = {
+        TopAppBar(title = { Text(stringResource(R.string.settings)) },
+            navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null) } })
+    }) { pad ->
+        Column(Modifier.padding(pad).fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(stringResource(R.string.paid_note), fontSize = 13.sp)
-            for (p in Prov.values()) {
-            if (p == Prov.values().first { it.free == p.free }) {
-                Text(
-                    stringResource(if (p.free) R.string.cat_free else R.string.cat_paid),
-                    color = Gold,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
+
+            // TTS toggle
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text(stringResource(R.string.tts_setting), fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.tts_hint), fontSize = 12.sp, color = Ink.copy(alpha = 0.6f))
+                }
+                Switch(checked = st.ttsEnabled, onCheckedChange = { st.setTts(it) })
             }
+            HorizontalDivider()
+
+            for (p in Prov.values()) {
+                if (p == Prov.values().first { it.free == p.free }) {
+                    Text(stringResource(if (p.free) R.string.cat_free else R.string.cat_paid),
+                        color = Gold, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 8.dp))
+                }
                 Card(Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(p.title, fontWeight = FontWeight.Bold, color = Gold)
                             Spacer(Modifier.width(8.dp))
-                            Text(
-                                stringResource(if (p.free) R.string.free else R.string.paid),
-                                fontSize = 12.sp,
-                                color = if (p.free) Green else Gold
-                            )
+                            Text(stringResource(if (p.free) R.string.free else R.string.paid),
+                                fontSize = 12.sp, color = if (p.free) Green else Gold)
                         }
                         if (st.locked[p.id] == true) {
                             Text("⚠ " + stringResource(R.string.locked), color = Red, fontSize = 13.sp)
                             TextButton(onClick = { st.setLocked(p, false) }) { Text(stringResource(R.string.unlock_btn)) }
                         }
-                        OutlinedTextField(
-                            value = st.key(p),
-                            onValueChange = { st.setKey(p, it.trim()) },
+                        OutlinedTextField(value = st.key(p), onValueChange = { st.setKey(p, it.trim()) },
                             label = { Text(stringResource(R.string.key_label)) },
-                            visualTransformation = PasswordVisualTransformation(),
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                            visualTransformation = PasswordVisualTransformation(), singleLine = true,
+                            modifier = Modifier.fillMaxWidth())
                         Row {
-                            TextButton(onClick = {
-                                val t = clip.getText()?.text
-                                if (!t.isNullOrBlank()) st.setKey(p, t.trim())
-                            }) { Text(stringResource(R.string.paste)) }
+                            TextButton(onClick = { clip.getText()?.text?.takeIf { it.isNotBlank() }?.let { st.setKey(p, it.trim()) } }) { Text(stringResource(R.string.paste)) }
                             TextButton(onClick = { uri.openUri(p.keyUrl) }) { Text(stringResource(R.string.get_key)) }
                             TextButton(onClick = { tut = p }) { Text(stringResource(R.string.tutorial_btn)) }
                         }
-                        OutlinedTextField(
-                            value = st.models[p.id] ?: p.defaultModel,
+                        OutlinedTextField(value = st.models[p.id] ?: p.defaultModel,
                             onValueChange = { st.setModel(p, it.trim()) },
-                            label = { Text(stringResource(R.string.model_label)) },
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                            label = { Text(stringResource(R.string.model_label)) }, singleLine = true,
+                            modifier = Modifier.fillMaxWidth())
                         TextButton(onClick = {
-                            if (st.key(p).isBlank()) {
-                                errMsg = needKey
-                            } else {
+                            if (st.key(p).isBlank()) errMsg = needKey
+                            else {
                                 loadingP = p
-                                st.scope.launch {
+                                scope.launch {
                                     val r = withContext(Dispatchers.IO) { runCatching { Api.models(p, st.key(p)) } }
                                     loadingP = null
                                     val l = r.getOrNull()
@@ -1496,10 +1448,8 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
                             value = (st.limits[p.id] ?: 0).let { if (it == 0) "" else it.toString() },
                             onValueChange = { v -> st.setLimit(p, v.filter { c -> c.isDigit() }.take(9).toIntOrNull() ?: 0) },
                             label = { Text(stringResource(R.string.limit_label)) },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), singleLine = true,
+                            modifier = Modifier.fillMaxWidth())
                         TextButton(onClick = { st.resetUsed(p) }) { Text(stringResource(R.string.reset_counter)) }
                     }
                 }
@@ -1508,60 +1458,33 @@ fun SettingsScreen(st: AppState, onBack: () -> Unit) {
             Text(stringResource(R.string.about_text), fontSize = 13.sp)
         }
     }
-    val pk = picker
-    if (pk != null) {
-        AlertDialog(
-            onDismissRequest = { picker = null },
-            title = { Text(stringResource(R.string.pick_model)) },
-            text = {
-                Column(Modifier.verticalScroll(rememberScrollState())) {
-                    pk.second.forEach { m ->
-                        Text(
-                            m,
-                            modifier = Modifier.fillMaxWidth().clickable { st.pickModel(pk.first, m); picker = null }.padding(vertical = 10.dp)
-                        )
-                    }
-                }
-            },
-            confirmButton = {},
-            dismissButton = { TextButton(onClick = { picker = null }) { Text(stringResource(R.string.close)) } }
-        )
+    picker?.let { pk ->
+        AlertDialog(onDismissRequest = { picker = null }, title = { Text(stringResource(R.string.pick_model)) },
+            text = { Column(Modifier.verticalScroll(rememberScrollState())) {
+                pk.second.forEach { m -> Text(m, modifier = Modifier.fillMaxWidth().clickable { st.pickModel(pk.first, m); picker = null }.padding(vertical = 10.dp)) }
+            } }, confirmButton = {}, dismissButton = { TextButton(onClick = { picker = null }) { Text(stringResource(R.string.close)) } })
     }
-    val em = errMsg
-    if (em != null) {
-        AlertDialog(
-            onDismissRequest = { errMsg = null },
-            text = { Text(em) },
-            confirmButton = { TextButton(onClick = { errMsg = null }) { Text(stringResource(R.string.close)) } }
-        )
+    errMsg?.let { em ->
+        AlertDialog(onDismissRequest = { errMsg = null }, text = { Text(em) },
+            confirmButton = { TextButton(onClick = { errMsg = null }) { Text(stringResource(R.string.close)) } })
     }
-    val t = tut
-    if (t != null) {
-        AlertDialog(
-            onDismissRequest = { tut = null },
-            title = { Text(t.title) },
+    tut?.let { t ->
+        AlertDialog(onDismissRequest = { tut = null }, title = { Text(t.title) },
             text = { Column(Modifier.verticalScroll(rememberScrollState())) { Text(stringResource(tutRes(t))) } },
             confirmButton = { TextButton(onClick = { uri.openUri(t.keyUrl) }) { Text(stringResource(R.string.get_key)) } },
-            dismissButton = { TextButton(onClick = { tut = null }) { Text(stringResource(R.string.close)) } }
-        )
+            dismissButton = { TextButton(onClick = { tut = null }) { Text(stringResource(R.string.close)) } })
     }
 }
 
 @Composable
 fun TutorialDialog(onClose: () -> Unit, onSettings: () -> Unit) {
-    AlertDialog(
-        onDismissRequest = onClose,
-        title = { Text(stringResource(R.string.no_keys_title)) },
-        text = {
-            Column(Modifier.verticalScroll(rememberScrollState())) {
-                Text(stringResource(R.string.no_keys_text))
-                Spacer(Modifier.height(8.dp))
-                Text(stringResource(R.string.tutorial_text), fontSize = 13.sp)
-            }
-        },
+    AlertDialog(onDismissRequest = onClose, title = { Text(stringResource(R.string.no_keys_title)) },
+        text = { Column(Modifier.verticalScroll(rememberScrollState())) {
+            Text(stringResource(R.string.no_keys_text)); Spacer(Modifier.height(8.dp))
+            Text(stringResource(R.string.tutorial_text), fontSize = 13.sp)
+        } },
         confirmButton = { TextButton(onClick = onSettings) { Text(stringResource(R.string.how_to_get)) } },
-        dismissButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.close)) } }
-    )
+        dismissButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.close)) } })
 }
 =====FILE: app/horus.keystore.b64=====
 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
